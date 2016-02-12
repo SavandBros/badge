@@ -1,57 +1,14 @@
-try:
-    from StringIO import StringIO as BytesIO
-except ImportError:
-    from io import BytesIO
-
-import gc
 import hashlib
-import mimetypes
 import os
 import time
 
-try:
-    from urllib import quote as urllib_quote
-except ImportError:     # python3
-    from urllib.parse import quote as urllib_quote
-
-from klein import Klein
-from redis import Redis
 import requests
 from yarg.package import json2package
+from basement.settings import redis
 
-
-PYPI_URL = "https://pypi.python.org/pypi/%s/json"
-SHIELD_URL = "http://img.shields.io/badge/%s-%s-%s.%s"
-# SHIELD_URL = "http://localhost:9000/badge/%s-%s-%s.%s"  # pypip.in uses a local version of img.shields.io
-FILE_CACHE = "/tmp/shields.py/"
-CACHE_TIME = (60 * 60) * 24  # 24 hours
-REDIS_EXPIRE = 60 * 10  # 10 minutes
-
-app = Klein()
-redis = Redis()
-resource = app.resource
-
-
-def format_number(singular, number):
-    value = singular % {'value': number}
-    # Get rid of the .0 but keep the other decimals
-    return value.replace('.0', '')
-
-
-def escape_shield_query(text):
-    """Escape text to be inserted in a shield API request."""
-    text = urllib_quote(text, safe=' ')
-    text = text.replace('_', '__')
-    text = text.replace(' ', '_')
-    text = text.replace('-', '--')
-    return text
-
-
-intword_converters = (
-    (3, lambda number: format_number('%(value).1fk', number)),
-    (6, lambda number: format_number('%(value).1fM', number)),
-    (9, lambda number: format_number('%(value).1fB', number)),
-)
+from basement.utils import intword_converters, escape_shield_query
+from basement.compact import BytesIO
+from basement import settings
 
 
 class PypiHandler(object):
@@ -64,7 +21,7 @@ class PypiHandler(object):
     def get(self, request, package, format, *args, **kwargs):
         self.request = request
         self.format = format
-        url = PYPI_URL % package
+        url = settings.PYPI_URL % package
         r_data = redis.get(package)
         if r_data:
             self.package = json2package(r_data)
@@ -77,7 +34,7 @@ class PypiHandler(object):
             return self.write_shield('error', 'red')
         else:
             redis.set(package, response.content)
-            redis.expire(package, REDIS_EXPIRE)
+            redis.expire(package, settings.REDIS_EXPIRE)
             self.package = json2package(response.content)
             return self.handle_package_data()
 
@@ -90,7 +47,7 @@ class PypiHandler(object):
 
     def write_shield(self, status, colour='brightgreen'):
         '''Obtain and write the shield to the response.'''
-        shield_url = SHIELD_URL % (
+        shield_url = settings.SHIELD_URL % (
             self.shield_subject,
             status,
             colour,
@@ -103,9 +60,9 @@ class PypiHandler(object):
         shield_url = shield_url.replace(" ", "_")
 
         ihash = self.hash(shield_url)
-        cache = os.path.join(FILE_CACHE, ihash)
+        cache = os.path.join(settings.FILE_CACHE, ihash)
         if os.path.exists(cache) and self.cacheable:
-            mtime = os.stat(cache).st_mtime + CACHE_TIME
+            mtime = os.stat(cache).st_mtime + settings.CACHE_TIME
             if mtime > time.time():
                 return open(cache).read()
 
@@ -307,19 +264,4 @@ generators = {
 }
 
 
-@app.route('/<string:generator>/<string:package>/badge.<string:extension>')
-def shield(request, generator, package, extension):
-    gc.collect()
-    ext = mimetypes.types_map[".{0}".format(extension)]
-    request.headers.update({'content-type': ext})
-    klass = generators[generator]()
-    img = klass.get(request, package, extension)
-    return img
 
-
-if __name__ == '__main__':
-    if not os.path.exists(FILE_CACHE):
-        os.mkdir(FILE_CACHE)
-    if '.svg' not in mimetypes.types_map:
-        mimetypes.add_type("image/svg+xml", ".svg")
-    app.run("localhost", 8888)
