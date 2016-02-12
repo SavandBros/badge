@@ -5,10 +5,8 @@ except ImportError:
 
 import gc
 import hashlib
-import json
 import mimetypes
 import os
-import re
 import time
 
 try:
