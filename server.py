@@ -17,4 +17,4 @@ if __name__ == '__main__':
     if '.svg' not in mimetypes.types_map:
         mimetypes.add_type("image/svg+xml", ".svg")
 
-    app.run("localhost", 8080)
+    app.run("localhost", 80)
