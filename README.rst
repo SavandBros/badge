@@ -2,23 +2,20 @@
 PyPI Pins/Shields
 =================
 
-.. image:: https://pypip.in/d/blackhole/badge.svg
-        :target: https://pypi.python.org/pypi/blackhole/
+.. image:: http://badge.kloud51.com/d/html2text/badge.png
+        :target: https://pypi.python.org/pypi/html2text/
 
-.. image:: https://pypip.in/v/blackhole/badge.svg
-        :target: https://pypi.python.org/pypi/blackhole/
+.. image:: http://badge.kloud51.com/v/html2text/badge.png
+        :target: https://pypi.python.org/pypi/html2text/
 
-.. image:: https://pypip.in/egg/blackhole/badge.svg
-        :target: https://pypi.python.org/pypi/blackhole/
+.. image:: http://badge.kloud51.com/wheel/html2text/badge.png
+        :target: https://pypi.python.org/pypi/html2text/
 
-.. image:: https://pypip.in/wheel/blackhole/badge.svg
-        :target: https://pypi.python.org/pypi/blackhole/
-
-.. image:: https://pypip.in/license/blackhole/badge.svg
-        :target: https://pypi.python.org/pypi/blackhole/
+.. image:: http://badge.kloud51.com/license/html2text/badge.png
+        :target: https://pypi.python.org/pypi/html2text/
 
 
 Documentation / Usage
 =====================
 
-https://pypip.in/
+http://badge.kloud51.com/
