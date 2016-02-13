@@ -9,12 +9,10 @@ if not os.path.exists(FILE_CACHE):
     print("Creating {0} cache dir".format(FILE_CACHE))
     os.makedirs(FILE_CACHE)
 
+if '.svg' not in mimetypes.types_map:
+    mimetypes.add_type("image/svg+xml", ".svg")
+
 resource = app.resource
 
 if __name__ == '__main__':
-    if not os.path.exists(FILE_CACHE):
-        os.mkdir(FILE_CACHE)
-    if '.svg' not in mimetypes.types_map:
-        mimetypes.add_type("image/svg+xml", ".svg")
-
     app.run("localhost", 80)
