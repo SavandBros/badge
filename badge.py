@@ -8,7 +8,7 @@ from twisted.web.static import File
 
 from basement import settings
 from basement.utils import render_template
-from shields.shields import generators
+from shields import generators
 
 app = Klein()
 
