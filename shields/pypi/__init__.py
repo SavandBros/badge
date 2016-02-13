@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+PyPi
+====
+
+Everything around PyPi
+"""
+
 import hashlib
 import os
 import time
@@ -247,21 +255,3 @@ class StatusHandler(PypiHandler):
         status = status.lower().replace('-', '--')
         status = "stable" if status == "production/stable" else status
         return self.write_shield(status, statuses[code])
-
-
-generators = {
-    'd': DownloadHandler,
-    'download': DownloadHandler,
-    'v': VersionHandler,
-    'version': VersionHandler,
-    'wheel': WheelHandler,
-    'egg': EggHandler,
-    'license': LicenseHandler,
-    'format': FormatHandler,
-    'py_versions': PythonVersionsHandler,
-    'implementation': ImplementationHandler,
-    'status': StatusHandler,
-}
-
-
-
