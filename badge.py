@@ -4,9 +4,18 @@ import gc
 
 from klein import Klein
 
+from twisted.web.static import File
+
+from basement import settings
+from basement.utils import render_template
 from shields.shields import generators
 
 app = Klein()
+
+
+@app.route("/")
+def index(request):
+    return render_template('index.html')
 
 
 @app.route("/static/", branch=True)
