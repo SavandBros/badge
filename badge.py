@@ -9,6 +9,11 @@ from shields.shields import generators
 app = Klein()
 
 
+@app.route("/static/", branch=True)
+def static(request):
+    return File(settings.STATIC_DIR)
+
+
 @app.route('/<string:generator>/<string:package>/badge.<string:extension>')
 def shield(request, generator, package, extension):
     gc.collect()
