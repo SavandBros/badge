@@ -23,12 +23,12 @@ def static(request):
     return File(settings.STATIC_DIR)
 
 
-@app.route('/<string:generator>/<string:package>/badge.<string:extension>')
-def shield(request, generator, package, extension):
+@app.route('/<string:service>/<string:generator>/<string:package>/badge.<string:extension>')
+def shield(request, service, generator, package, extension):
     gc.collect()
     ext = mimetypes.types_map[".{0}".format(extension)]
     request.headers.update({'content-type': ext})
-    klass = generators[generator]()
+    klass = generators[service][generator]()
     img = klass.get(request, package, extension)
 
     return img
