@@ -1,6 +1,6 @@
 body {
     padding-top: 80px;
-    background: #334 url(../img/background.png) fixed;
+    background: #334 url(/static/img/background.png) fixed;
 }
 
 *:FOCUS {
@@ -36,7 +36,6 @@ section.urls {
     padding: 40px 30px;
     margin-bottom: 20px;
     margin-top: -4px;
-    margin-bottom: 340px;
     -webkit-border-radius: 4px;
             border-radius: 4px;
 }
