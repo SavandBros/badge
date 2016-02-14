@@ -9,7 +9,7 @@ setup(
     # long_description=long_description,
     author='Kura',
     author_email='kura@kura.io',
-    url='https://github.com/badges/pypipins',
+    url='https://github.com/SavandBros/badge',
     packages=find_packages(),
     zip_safe=True,
     keywords='PyPI badges/pins/shields',
