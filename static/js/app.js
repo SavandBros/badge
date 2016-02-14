@@ -17,7 +17,7 @@ function search() {
         success: function(result) {
             $(".panel").css('opacity', 1);
             $(".panel").each(function(index) {
-                var url = 'http://badge.kloud51.com/'+params[index]+'/'+name+'/badge.png';
+                var url = 'http://badge.kloud51.com/pypi/'+params[index]+'/'+name+'/badge.png';
                 $($('.badge-url')[index]).val(url);
                 $($('.badge-image')[index]).attr('src', url);
             });
