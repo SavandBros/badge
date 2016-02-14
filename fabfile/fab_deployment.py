@@ -41,8 +41,9 @@ def deploy_web_hosts():
     """
     Deploy to web machines
     """
-    with cd(env.web_deploy_dir):
-        run('git pull origin master')
-        run('pip install -r requirements/dev.txt')
-        run('fab clean_pyc')
-        sudo('systemctl restart badgek51')
+    with venv():
+        with cd(env.web_deploy_dir):
+            run('git pull origin master')
+            run('pip install -r requirements/dev.txt')
+            run('fab clean_pyc')
+            sudo('systemctl restart badgek51')
