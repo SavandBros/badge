@@ -257,7 +257,7 @@ class StatusHandler(PypiHandler):
             '3': painter_settings.COLOR_RED,
             '4': painter_settings.COLOR_YELLOW,
             '5': painter_settings.COLOR_BRIGHT_GREEN,
-            '6': painter_settings.COLOR_BRIGHT_GREEN
+            '6': painter_settings.COLOR_BRIGHT_GREEN,
             '7': painter_settings.COLOR_RED
         }
         code, status = self.get_status()
