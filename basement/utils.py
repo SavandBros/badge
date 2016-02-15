@@ -27,6 +27,21 @@ intword_converters = (
 )
 
 
+def get_file_path_from_base(file_path):
+    """
+    :param file_path: file path
+    :type file_path: str
+
+    :rtype: str
+    """
+    file_path = os.path.join(settings.BASE_DIR, file_path)
+
+    if not os.path.isfile(file_path):
+        raise LookupError('File {0} does not exists'.format(file_path))
+
+    return file_path
+
+
 def get_template_path(template_name):
     """
     :param template_name: Template name
