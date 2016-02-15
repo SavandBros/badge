@@ -2,7 +2,7 @@
 import mimetypes
 import os
 
-from badge import app
+from badge.views import app
 from basement.settings import FILE_CACHE
 
 if not os.path.exists(FILE_CACHE):
