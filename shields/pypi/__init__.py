@@ -251,8 +251,15 @@ class StatusHandler(PypiHandler):
         return "1", "unknown"
 
     def handle_package_data(self):
-        statuses = {'1': 'red', '2': 'red', '3': 'red', '4': 'yellow',
-                    '5': 'brightgreen', '6': 'brightgreen', '7': 'red'}
+        statuses = {
+            '1': painter_settings.COLOR_RED,
+            '2': painter_settings.COLOR_RED,
+            '3': painter_settings.COLOR_RED,
+            '4': painter_settings.COLOR_YELLOW,
+            '5': painter_settings.COLOR_BRIGHT_GREEN,
+            '6': painter_settings.COLOR_BRIGHT_GREEN
+            '7': painter_settings.COLOR_RED
+        }
         code, status = self.get_status()
         status = status.lower().replace('-', '--')
         status = "stable" if status == "production/stable" else status
