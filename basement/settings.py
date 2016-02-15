@@ -15,6 +15,7 @@ BASE_DIR = PROJECT_DIR = os.path.abspath(os.path.join(
 )
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static/')
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates/')
+TEMPLATE_DIR_NAME = 'templates'
+TEMPLATES_DIR = os.path.join(BASE_DIR, TEMPLATE_DIR_NAME)
 
 redis = Redis()
