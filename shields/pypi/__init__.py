@@ -9,6 +9,7 @@ Everything around PyPi
 import hashlib
 
 import requests
+import wand
 from yarg.package import json2package
 
 from basement.settings import redis
@@ -86,7 +87,14 @@ class PypiHandler(object):
         # img.seek(0)
         # return img.read()
         draw = Draw(self.shield_subject, colour, status)
-        return draw.as_svg()
+        img = draw.as_svg()
+
+        if self.format == 'png':
+            with wand.image.Image(blob=img, format="svg") as image:
+                img = image.make_blob('png')
+
+
+        return img
 
 
 class DownloadHandler(PypiHandler):
