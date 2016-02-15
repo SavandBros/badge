@@ -18,4 +18,9 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static/')
 TEMPLATE_DIR_NAME = 'templates'
 TEMPLATES_DIR = os.path.join(BASE_DIR, TEMPLATE_DIR_NAME)
 
+ALLOWED_EXTENSIONS = (
+    'png',
+    'svg'
+)
+
 redis = Redis()
