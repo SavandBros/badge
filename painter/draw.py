@@ -54,7 +54,7 @@ class Draw(object):
         if not self.key_width:
             self.key_width = (
                 settings.KEY_LEFT_MARGIN +
-                self.get_key_text_width() +
+                int(self.get_key_text_width()) +
                 settings.KEY_RIGHT_MARGIN
             )
 
@@ -86,7 +86,7 @@ class Draw(object):
         if not self.value_width:
             self.value_width = (
                 settings.VALUE_LEFT_MARGIN +
-                self.get_value_text_width() +
+                int(self.get_value_text_width()) +
                 settings.VALUE_RIGHT_MARGIN
             )
 
