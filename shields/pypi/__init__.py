@@ -87,14 +87,8 @@ class PypiHandler(object):
         # img.seek(0)
         # return img.read()
         draw = Draw(self.shield_subject, colour, status)
-        img = draw.as_svg()
 
-        if self.format == 'png':
-            with wand.image.Image(blob=img, format="svg") as image:
-                img = image.make_blob('png')
-
-
-        return img
+        return draw.as_svg() if self.format == 'svg' else draw.as_png()
 
 
 class DownloadHandler(PypiHandler):

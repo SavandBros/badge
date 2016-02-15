@@ -130,4 +130,10 @@ class Draw(object):
         )
 
     def as_png(self):
-        raise NotImplementedError
+        """
+        :type
+        """
+        svg = self.as_svg()
+
+        with Image(blob=svg, format="svg") as image:
+                return image.make_blob('png')
