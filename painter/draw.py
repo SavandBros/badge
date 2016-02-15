@@ -67,7 +67,7 @@ class Draw(object):
         if not self.value_text_width:
             self.value_text_width = self.get_text_width(self.value_text)
 
-        return self.key_text_width
+        return self.value_text_width
 
     def get_value_text_x(self):
         """
@@ -123,8 +123,10 @@ class Draw(object):
             key_color=self.key_color,
             key_width=self.get_key_width(),
             key_text=self.key_text,
+            value_color=self.value_color,
             value_text_x=self.get_value_text_x(),
-            value_text=self.value_text
+            value_text=self.value_text,
+            value_width=self.get_value_width()
         )
 
     def as_png(self):
