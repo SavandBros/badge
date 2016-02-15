@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
+from basement import settings
+from basement.utils import get_file_path_from_base
+
 BADGE_TEMPLATE_STRING = """
 <svg xmlns="http://www.w3.org/2000/svg" width="{total_width}" height="20">
   <linearGradient id="b" x2="0" y2="100%">
@@ -38,3 +42,8 @@ COLOR_RED = 'e05d44'
 COLOR_BLUE = '007ec6'
 COLOR_GREY = '555'
 COLOR_LIGHT_GRAY = '9f9f9f'
+
+
+FONT_PATH_OPEN_SANS = get_file_path_from_base(
+    os.path.join(settings.STATIC_DIR, 'fonts/OpenSans-Regular.ttf')
+)

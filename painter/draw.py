@@ -26,7 +26,7 @@ class Draw(object):
     value_width = None
     value_text_x = None
     total_width = None
-    font = None
+    font = settings.FONT_PATH_OPEN_SANS
     font_size = 11
     _canvas = None
 
