@@ -9,7 +9,6 @@ Everything around PyPi
 import hashlib
 
 import requests
-import wand
 from yarg.package import json2package
 
 from basement.settings import redis
