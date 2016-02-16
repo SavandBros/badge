@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
+from wand.image import Image
 from painter import settings
 
 from painter.draw import Draw
@@ -33,4 +34,18 @@ class TestDraw(TestCase):
         draw = Draw('badge', settings.COLOR_BRIGHT_GREEN, 'kloud51')
         svg_text = draw.as_svg()
 
-        self.assertEqual(svg_text, self.painter_badge_kloud51_brightgreen)
+        self.assertIsNotNone(svg_text)
+
+    def test_as_png(self):
+        draw = Draw('badge', settings.COLOR_BRIGHT_GREEN, 'kloud51')
+        png_binary = draw.as_png()
+        self.assertIsNotNone(png_binary)
+
+        with Image(blob=png_binary) as img_png:
+            self.assertIsNotNone(img_png)
+            self.assertIsInstance(img_png, Image)
+            self.assertEqual(img_png.height, 20)
+            self.assertEqual(int(draw.get_total_width()), img_png.width)
+            self.assertEqual(img_png.height, 20)
+            self.assertEqual(img_png.format, 'PNG')
+
