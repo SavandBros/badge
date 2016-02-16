@@ -26,6 +26,11 @@ def static(request):
 @app.route('/<string:service>/<string:generator>/<string:package>/badge.<string:extension>')
 def shield(request, service, generator, package, extension):
     gc.collect()
+
+    if extension not in settings.ALLOWED_EXTENSIONS:
+        request.setResponseCode(401)
+        return "{} is not a valid extension.".format(extension)
+
     ext = mimetypes.types_map[".{0}".format(extension)]
     request.headers.update({'content-type': ext})
     klass = generators[service][generator]()

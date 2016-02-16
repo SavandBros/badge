@@ -4,7 +4,6 @@ import os
 from redis import Redis
 
 PYPI_URL = "https://pypi.python.org/pypi/%s/json"
-SHIELD_URL = "http://img.shields.io/badge/%s-%s-%s.%s"
 # SHIELD_URL = "http://localhost:9000/badge/%s-%s-%s.%s"  # pypip.in uses a local version of img.shields.io
 FILE_CACHE = "/tmp/badge.py/"
 CACHE_TIME = (60 * 60) * 24  # 24 hours
@@ -15,6 +14,12 @@ BASE_DIR = PROJECT_DIR = os.path.abspath(os.path.join(
 )
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static/')
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates/')
+TEMPLATE_DIR_NAME = 'templates'
+TEMPLATES_DIR = os.path.join(BASE_DIR, TEMPLATE_DIR_NAME)
+
+ALLOWED_EXTENSIONS = (
+    'png',
+    'svg'
+)
 
 redis = Redis()

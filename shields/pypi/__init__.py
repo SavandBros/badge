@@ -7,16 +7,15 @@ Everything around PyPi
 """
 
 import hashlib
-import os
-import time
 
 import requests
 from yarg.package import json2package
-from basement.settings import redis
 
+from basement.settings import redis
 from basement.utils import intword_converters, escape_shield_query
-from basement.compact import BytesIO
 from basement import settings
+from painter import settings as painter_settings
+from painter.draw import Draw
 
 
 class PypiHandler(object):
@@ -39,7 +38,7 @@ class PypiHandler(object):
             response.raise_for_status()
         except requests.exceptions.HTTPError as e:
             self.shield_subject = 'error'
-            return self.write_shield('error', 'red')
+            return self.write_shield('error', painter_settings.COLOR_RED)
         else:
             redis.set(package, response.content)
             redis.expire(package, settings.REDIS_EXPIRE)
@@ -53,39 +52,42 @@ class PypiHandler(object):
     def hash(self, url):
         return hashlib.md5(url).hexdigest()
 
-    def write_shield(self, status, colour='brightgreen'):
+    def write_shield(self, status, colour=painter_settings.COLOR_GREEN):
         '''Obtain and write the shield to the response.'''
-        shield_url = settings.SHIELD_URL % (
-            self.shield_subject,
-            status,
-            colour,
-            self.format,
-        )
-        style = self.request.args.get('style', 'flat')
-        if style is not None and style[0] in ['flat', 'flat-square', 'plastic' ]:
-            style = style[0]
-        shield_url += "?style={0}".format(style)
-        shield_url = shield_url.replace(" ", "_")
+        # shield_url = settings.SHIELD_URL % (
+        #     self.shield_subject,
+        #     status,
+        #     colour,
+        #     self.format,
+        # )
+        # style = self.request.args.get('style', 'flat')
+        # if style is not None and style[0] in ['flat', 'flat-square', 'plastic' ]:
+        #     style = style[0]
+        # shield_url += "?style={0}".format(style)
+        # shield_url = shield_url.replace(" ", "_")
+        # 
+        # ihash = self.hash(shield_url)
+        # cache = os.path.join(settings.FILE_CACHE, ihash)
+        # if os.path.exists(cache) and self.cacheable:
+        #     mtime = os.stat(cache).st_mtime + settings.CACHE_TIME
+        #     if mtime > time.time():
+        #         return open(cache).read()
+        # 
+        # shield_response = requests.get(shield_url, stream=True)
+        # img = BytesIO()
+        # for chunk in shield_response.iter_content(1024):
+        #     if not chunk:
+        #         break
+        #     img.write(chunk)
+        # if self.cacheable:
+        #     with open(cache, 'w') as ifile:
+        #         img.seek(0)
+        #         ifile.write(img.read())
+        # img.seek(0)
+        # return img.read()
+        draw = Draw(self.shield_subject, colour, status)
 
-        ihash = self.hash(shield_url)
-        cache = os.path.join(settings.FILE_CACHE, ihash)
-        if os.path.exists(cache) and self.cacheable:
-            mtime = os.stat(cache).st_mtime + settings.CACHE_TIME
-            if mtime > time.time():
-                return open(cache).read()
-
-        shield_response = requests.get(shield_url, stream=True)
-        img = BytesIO()
-        for chunk in shield_response.iter_content(1024):
-            if not chunk:
-                break
-            img.write(chunk)
-        if self.cacheable:
-            with open(cache, 'w') as ifile:
-                img.seek(0)
-                ifile.write(img.read())
-        img.seek(0)
-        return img.read()
+        return draw.as_svg() if self.format == 'svg' else draw.as_png()
 
 
 class DownloadHandler(PypiHandler):
@@ -136,7 +138,7 @@ class WheelHandler(PypiHandler):
     def handle_package_data(self):
         has_wheel = self.package.has_wheel
         wheel_text = "yes" if has_wheel else "no"
-        colour = "brightgreen" if has_wheel else "red"
+        colour = painter_settings.COLOR_BRIGHT_GREEN if has_wheel else painter_settings.COLOR_RED
         return self.write_shield(wheel_text, colour)
 
 
@@ -147,7 +149,7 @@ class EggHandler(PypiHandler):
     def handle_package_data(self,):
         has_egg = self.package.has_egg
         egg_text = "yes" if has_egg else "no"
-        colour = "red" if has_egg else "brightgreen"
+        colour = painter_settings.COLOR_RED if has_egg else painter_settings.COLOR_BRIGHT_GREEN
         return self.write_shield(egg_text, colour)
 
 
@@ -157,13 +159,13 @@ class FormatHandler(PypiHandler):
 
     def handle_package_data(self):
         has_egg = self.package.has_egg
-        colour = "yellow"
+        colour = painter_settings.COLOR_YELLOW
         text = "source"
         text = "egg" if has_egg else text
-        colour = "red" if has_egg else colour
+        colour = painter_settings.COLOR_RED if has_egg else colour
         has_wheel = self.package.has_wheel
         text = "wheel" if has_wheel else text
-        colour = "brightgreen" if has_wheel else colour
+        colour = painter_settings.COLOR_BRIGHT_GREEN if has_wheel else colour
         return self.write_shield(text, colour)
 
 
@@ -183,7 +185,8 @@ class LicenseHandler(PypiHandler):
     def handle_package_data(self):
         license = self.get_license()
         license = escape_shield_query(license)
-        colour = "blue" if license != "unknown" else "red"
+        colour = (painter_settings.COLOR_BLUE 
+                  if license != "unknown" else painter_settings.COLOR_RED)
         return self.write_shield(license, colour)
 
 
@@ -249,8 +252,15 @@ class StatusHandler(PypiHandler):
         return "1", "unknown"
 
     def handle_package_data(self):
-        statuses = {'1': 'red', '2': 'red', '3': 'red', '4': 'yellow',
-                    '5': 'brightgreen', '6': 'brightgreen', '7': 'red'}
+        statuses = {
+            '1': painter_settings.COLOR_RED,
+            '2': painter_settings.COLOR_RED,
+            '3': painter_settings.COLOR_RED,
+            '4': painter_settings.COLOR_YELLOW,
+            '5': painter_settings.COLOR_BRIGHT_GREEN,
+            '6': painter_settings.COLOR_BRIGHT_GREEN,
+            '7': painter_settings.COLOR_RED
+        }
         code, status = self.get_status()
         status = status.lower().replace('-', '--')
         status = "stable" if status == "production/stable" else status

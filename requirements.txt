@@ -4,3 +4,4 @@ requests==2.9.1
 redis==2.10.5
 yarg==0.1.9
 Fabric==1.10.2
+Wand==0.4.2
