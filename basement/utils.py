@@ -27,6 +27,24 @@ intword_converters = (
 )
 
 
+# Pretty much taken straight from Django
+def intword(value):
+    try:
+        value = int(value)
+    except (TypeError, ValueError):
+        return value
+
+    if value < 1000:
+        return str(value)
+
+    for exponent, converters in intword_converters:
+        large_number = 10 ** exponent
+        if value < large_number * 1000:
+            new_value = value / float(large_number)
+
+            return converters(new_value)
+
+
 def get_file_path_from_base(file_path):
     """
     :param file_path: file path
