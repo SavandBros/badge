@@ -29,4 +29,12 @@ function search() {
     });
 
     return false;
+function reinitialize(service_index, package) {
+
+    $('.actions').html('');
+
+    for (action in actions) {
+
+        append_action(service_index, action, 1, package);
+    }
 }
