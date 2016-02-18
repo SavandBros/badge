@@ -12,7 +12,7 @@ def format_number(singular, number):
 
 
 def escape_shield_query(text):
-    """Escape text to be inserted in a shield API request."""
+    """Escape text to be inserted in a service_badge API request."""
     text = urllib_quote(text, safe=' ')
     text = text.replace('_', '__')
     text = text.replace(' ', '_')
