@@ -72,6 +72,19 @@ class PyPiService(ServiceBase):
         return "1", "unknown"
 
     def get_license(self):
+
+    def action_egg(self):
+        """
+        Action PyPi Egg
+        """
+
+        has_egg = self.package_data.has_egg
+        self.badge_color = (painter_settings.COLOR_RED
+                            if has_egg else painter_settings.COLOR_BRIGHT_GREEN)
+        self.set_badge_context(
+            "egg",
+            "yes" if has_egg else "no"
+        )
         statuses = {
             '1': painter_settings.COLOR_RED,
             '2': painter_settings.COLOR_RED,
