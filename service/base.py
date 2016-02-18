@@ -77,3 +77,18 @@ class ServiceBase(object):
             value_color=badge_color,
             value_text=badge_value
         )
+
+    def set_badge_context(self, badge_key, badge_value):
+        """
+        Setting badge context, first key/subject and value/status.
+
+        :param badge_key: Badge Key/Subject
+        :type badge_key: str
+
+        :param badge_value: Badge Value/Status
+        :type badge_value: str
+
+        :rtype: None
+        """
+        self.badge_key = badge_key
+        self.badge_value = badge_value
