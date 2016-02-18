@@ -12,7 +12,7 @@ def format_number(singular, number):
 
 
 def escape_shield_query(text):
-    """Escape text to be inserted in a shield API request."""
+    """Escape text to be inserted in a service_badge API request."""
     text = urllib_quote(text, safe=' ')
     text = text.replace('_', '__')
     text = text.replace(' ', '_')
@@ -25,6 +25,24 @@ intword_converters = (
     (6, lambda number: format_number('%(value).1fM', number)),
     (9, lambda number: format_number('%(value).1fB', number)),
 )
+
+
+# Pretty much taken straight from Django
+def intword(value):
+    try:
+        value = int(value)
+    except (TypeError, ValueError):
+        return value
+
+    if value < 1000:
+        return str(value)
+
+    for exponent, converters in intword_converters:
+        large_number = 10 ** exponent
+        if value < large_number * 1000:
+            new_value = value / float(large_number)
+
+            return converters(new_value)
 
 
 def get_file_path_from_base(file_path):
