@@ -16,6 +16,10 @@ from painter import settings as painter_settings
 from service.base import ServiceBase
 
 
+class PyPiService(ServiceBase):
+    """
+    Get the pypi json data for the package #fuck, and process.
+    """
 
         if r_data:
         else:
