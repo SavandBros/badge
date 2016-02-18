@@ -132,6 +132,8 @@ class PyPiService(ServiceBase):
             versions = ", ".join(versions)
 
         self.set_badge_context("implementation", versions)
+
+    def action_status(self):
         statuses = {
             '1': painter_settings.COLOR_RED,
             '2': painter_settings.COLOR_RED,
@@ -142,6 +144,8 @@ class PyPiService(ServiceBase):
             '7': painter_settings.COLOR_RED
         }
         code, status = self.get_status()
+        self.badge_color = statuses[code]
         status = status.lower().replace('-', '--')
         status = "stable" if status == "production/stable" else status
 
+        self.set_badge_context("status", status)
