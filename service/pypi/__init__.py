@@ -150,6 +150,17 @@ class PyPiService(ServiceBase):
 
         self.set_badge_context("status", status)
 
+    def action_license(self):
+        """
+        Action PyPi License
+        """
+        lie_sense = self.get_license()
+        lie_sense = escape_shield_query(lie_sense)
+        self.badge_color = (painter_settings.COLOR_BLUE
+                            if lie_sense != "unknown"
+                            else painter_settings.COLOR_RED)
+
+        self.set_badge_context('license', lie_sense)
 
     def action_format(self):
         """
