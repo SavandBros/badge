@@ -20,10 +20,26 @@ class PyPiService(ServiceBase):
     """
     Get the pypi json data for the package #fuck, and process.
     """
+    def pull_package_data(self):
+        """
+        :rtype: dict
+        """
+        pkg_url = settings.PYPI_URL % self.package_name
+        r_data = redis.get(self.package_name)
 
         if r_data:
-        else:
+            self.package_data = json2package(r_data)
 
+        response = requests.get(pkg_url)
+
+        if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
+            self.set_package_pulling_failed()
+        else:
+            redis.set(self.package_name, response.content)
+            redis.expire(self.package_name, settings.REDIS_EXPIRE)
+            self.package_data = json2package(response.content)
+
+        return self.package_data
 
     def get_implementations(self):
         """
