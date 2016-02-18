@@ -11,6 +11,11 @@ section.urls {
     margin-top: 40px;
 }
 
+input {
+    -webkit-transition: all 0.3s ease-in-out !important;
+            transition: all 0.3s ease-in-out !important;
+}
+
 .bg-me {
     background: whitesmoke !important;
 }
