@@ -1,5 +1,20 @@
+services = [
+    {'slug': 'pypi', 'title': 'PyPi'}
+];
 
-var params = ['v', 'd', 'wheel', 'license', 'format', 'py_versions', 'implementation', 'status'];
+actions = [
+    {'slug': 'v',           'title': 'Version'        },
+    {'slug': 'd',           'title': 'Downloads'      },
+    {'slug': 'w',           'title': 'Wheel'          },
+    {'slug': 'l',           'title': 'License'        },
+    {'slug': 'f',           'title': 'Format'         },
+    {'slug': 'py_versions', 'title': 'Python Versions'},
+    {'slug': 's',           'title': 'Status'         }
+];
+
+formats = [
+    "png", "svg"
+];
 
 function search() {
 
