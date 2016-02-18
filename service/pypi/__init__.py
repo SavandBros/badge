@@ -120,6 +120,18 @@ class PyPiService(ServiceBase):
             "egg",
             "yes" if has_egg else "no"
         )
+
+    def action_implementation(self):
+        """
+        Action PyPi Implementation
+        """
+        versions = self.get_implementations()
+        self.badge_color = painter_settings.COLOR_BLUE
+
+        if isinstance(versions, list):
+            versions = ", ".join(versions)
+
+        self.set_badge_context("implementation", versions)
         statuses = {
             '1': painter_settings.COLOR_RED,
             '2': painter_settings.COLOR_RED,
