@@ -7,21 +7,8 @@ Talking to outside world.
 Lot's of API (HTTP) requests to services, smoke their data.
 Give them to :class:`painter.Draw` and let him to take care of the rest.
 """
-from service import pypi
+from service.registery import Registry
+from service.pypi import PyPiService
 
-
-generators = {
-    'pypi': {
-        'd': pypi.DownloadHandler,
-        'download': pypi.DownloadHandler,
-        'v': pypi.VersionHandler,
-        'version': pypi.VersionHandler,
-        'wheel': pypi.WheelHandler,
-        'egg': pypi.EggHandler,
-        'license': pypi.LicenseHandler,
-        'format': pypi.FormatHandler,
-        'py_versions': pypi.PythonVersionsHandler,
-        'implementation': pypi.ImplementationHandler,
-        'status': pypi.StatusHandler,
-    }
-}
+service_registry = Registry()
+service_registry.register_service(PyPiService)
