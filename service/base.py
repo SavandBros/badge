@@ -1,27 +1,24 @@
 # -*- coding: utf-8 -*-
+import logging
+from painter import settings as painter_settings
+from painter.draw import Draw
+
 class ServiceBase(object):
     badge_key = None
     badge_value = None
     format = 'svg'
     cash_it = False
 
-    def prepare_badge_context(self, package_data):
+    def pull_package_data(self):
         """
-        Basically handle the incoming data from service which hosts the
-        package or project.
+        Pulling package data from hosting service that keeps the packages.
 
-        The data must be provided in :class:`dict` class and parsing the data,
-        like converting from another type such as JSON should be handled
-        before reaching to this method.
+        The data must be returned in :class:`dict`.
+        Any information about the package that the other `actions` of the
+        service needs should be returned.
 
-        Required context:
-
-            * badge_key: The Subject of the badge.
-            * badge_value: The message of the badge.
-
-        :param package_data: A dictionary of package's data retrieved from
-        service that hosts the package.
-        :type: dict
+        The data of the package will be cached and will be used later by
+        the actions,
 
         :returns: A dictionary of required info for making the badge.
         :rtype: dict
