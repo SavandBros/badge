@@ -87,6 +87,23 @@ class PyPiService(ServiceBase):
 
         return "unknown"
 
+    def get_versions(self):
+        """
+        Get supported python versions
+        """
+        if (not isinstance(self.package_data.classifiers, list) and
+            not len(self.package_data.classifiers) > 0):
+            return "none found"
+
+        cs = self.package_data.python_versions
+        cs = sorted(set(cs))
+
+        if not len(cs) > 0:
+            # Assume "2.7
+            return "2.7"
+
+        return cs
+
     def action_version(self):
         """
         Action PyPi Package version
@@ -95,6 +112,18 @@ class PyPiService(ServiceBase):
             'version',
             self.package_data.latest_release_id.replace('-', '--')
         )
+
+    def action_py_versions(self):
+        """
+        Action PyPi Python Versions
+        """
+        versions = self.get_versions()
+        self.badge_color = painter_settings.COLOR_BLUE
+
+        if isinstance(versions, list):
+            versions = ", ".join(versions)
+
+        self.set_badge_context('python', versions)
 
     def action_wheel(self):
         """
