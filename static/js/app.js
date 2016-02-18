@@ -16,6 +16,10 @@ formats = [
     "png", "svg"
 ];
 
+function get_badge_url(service_index, action_index, format_index, package) {
+
+    return 'http://badge.kloud51.com/'+services[service_index].slug+'/'+actions[action_index].slug+'/'+package+'/badge.'+formats[format_index];
+}
 function search() {
 
     event.preventDefault();
