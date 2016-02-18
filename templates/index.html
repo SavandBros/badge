@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Badge">
+        <meta name="description" content="Badge - Badges for your site to display download totals, latest version using PyPI">
 
         <title>Badge - Badges for your site to display download totals, latest version using PyPI</title>
 
@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="/static/css/app.css">
         
         <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
 
@@ -39,7 +39,7 @@
 
         <div class="container">
 
-            <div class="col-md-7 col-md-offset-1">
+            <div class="col-md-9">
 
                 <div class="main">
 
@@ -47,90 +47,83 @@
 
                         <form onsubmit="return search()">
                         
-                            <input class="search form-control input-lg" value="html2text" placeholder="Name of package..." required>
+                            <input onclick="this.select()" class="search form-control input-lg" value="html2text" placeholder="Name of package..." required>
                         
                         </form>
                         
-
                     </section>
 
                     <section class="urls">
                         
-                        <ul class="nav nav-tabs">
-                          <li role="presentation" class="active"><a class="bg-me">PyPi</a></li>
+                        <ul class="nav nav-tabs services">
+                            <li role="presentation" class="active"><a class="bg-me">PyPi</a></li>
                         </ul>
 
                         <br>
 
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/v/html2text/badge.png">
+                        <div class="actions">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Version</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
+                                </span>
                             </div>
-                            <div class="panel-footer">
-                                Package Version <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/v/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Downloads</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
+                                </span>
                             </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/d/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Wheel</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
+                                </span>
                             </div>
-                            <div class="panel-footer">
-                                Package Downloads <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/d/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">License</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
+                                </span>
                             </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/wheel/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Format</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                                </span>
                             </div>
-                            <div class="panel-footer">
-                                Package Wheel <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/wheel/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Python Versions</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/py_versions/html2text/badge.svg">
+                                </span>
                             </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/license/html2text/badge.png">
-                            </div>
-                            <div class="panel-footer">
-                                Package License <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/license/html2text/badge.png">
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/format/html2text/badge.png">
-                            </div>
-                            <div class="panel-footer">
-                                Package Format <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/format/html2text/badge.png">
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/py_versions/html2text/badge.png">
-                            </div>
-                            <div class="panel-footer">
-                                Package Python Versions <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/py_versions/html2text/badge.png">
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/implementation/html2text/badge.png">
-                            </div>
-                            <div class="panel-footer">
-                                Package Implementation <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/implementation/html2text/badge.png">
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <input class="form-control badge-url" readonly value="http://badge.kloud51.com/pypi/status/html2text/badge.png">
-                            </div>
-                            <div class="panel-footer">
-                                Package Implementation <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/status/html2text/badge.png">
+                            <div class="panel panel-default panel-body">
+                                <p class="col-xs-2">Status</p>
+                                <span class="col-xs-8">
+                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
+                                </span>
+                                <span class="col-xs-2">
+                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
+                                </span>
                             </div>
                         </div>
 
@@ -140,7 +133,7 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <div class="main">
 
