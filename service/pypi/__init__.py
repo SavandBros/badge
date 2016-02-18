@@ -150,6 +150,23 @@ class PyPiService(ServiceBase):
 
         self.set_badge_context("status", status)
 
+
+    def action_format(self):
+        """
+        Action PyPi Format
+        """
+        has_egg = self.package_data.has_egg
+        color = painter_settings.COLOR_YELLOW
+        badge_value = "source"
+        badge_value = "egg" if has_egg else badge_value
+        color = painter_settings.COLOR_RED if has_egg else color
+        has_wheel = self.package_data.has_wheel
+        badge_value = "wheel" if has_wheel else badge_value
+        color = painter_settings.COLOR_BRIGHT_GREEN if has_wheel else color
+
+        self.badge_color = color
+        self.set_badge_context('format', badge_value)
+
     def action_downloads(self):
         """
         Action PyPi Downloads
