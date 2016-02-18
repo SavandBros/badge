@@ -87,6 +87,19 @@ class PyPiService(ServiceBase):
 
         return "unknown"
 
+
+    def action_wheel(self):
+        """
+        Action PyPi Wheel
+        """
+        has_wheel = self.package_data.has_wheel
+        self.badge_color = (painter_settings.COLOR_BRIGHT_GREEN
+                            if has_wheel else painter_settings.COLOR_RED)
+        self.set_badge_context(
+            "wheel",
+            "yes" if has_wheel else "no"
+        )
+
     def action_egg(self):
         """
         Action PyPi Egg
