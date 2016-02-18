@@ -57,11 +57,18 @@ class PyPiService(ServiceBase):
         return cs
 
     def get_status(self):
+        """
+        Get status of package on PyPi.
+        """
+        if (not isinstance(self.package_data.classifiers, list) and
+            not len(self.package_data.classifiers) > 0 ):
             return "none found"
 
+        for classifier in self.package_data.classifiers:
             if classifier.startswith("Development Status"):
                 bits = classifier.split(' :: ')
                 return bits[1].split(' - ')
+
         return "1", "unknown"
 
     def get_license(self):
