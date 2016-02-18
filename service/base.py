@@ -15,6 +15,13 @@ class ServiceBase(object):
     package_pulling_failed_value = 'error'
     format = 'svg'
     cash_it = True
+    extra_context = {}
+
+    def __init__(self, package_name, format=None, cash_it=True, extra_context=None, *args, **kwargs):
+        self.package_name = package_name
+        self.format = format or self.format
+        self.cash_it = cash_it
+        self.extra_context = extra_context or {}
 
     def pull_package_data(self):
         """
