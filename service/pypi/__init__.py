@@ -149,3 +149,20 @@ class PyPiService(ServiceBase):
         status = "stable" if status == "production/stable" else status
 
         self.set_badge_context("status", status)
+
+    def action_downloads(self):
+        """
+        Action PyPi Downloads
+        """
+        period = self.extra_context.get('period', 'month')
+
+        if isinstance(period, list):
+            period = period[0]
+
+        if period not in ('day', 'week', 'month'):
+            period = "month"
+
+        downloads = getattr(self.package_data.downloads, period)
+        downloads = intword(downloads)
+
+        self.set_badge_context("downloads", "{}/{}".format(downloads, period))
