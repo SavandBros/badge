@@ -87,6 +87,23 @@ class PyPiService(ServiceBase):
 
         return "unknown"
 
+    def get_versions(self):
+        """
+        Get supported python versions
+        """
+        if (not isinstance(self.package_data.classifiers, list) and
+            not len(self.package_data.classifiers) > 0):
+            return "none found"
+
+        cs = self.package_data.python_versions
+        cs = sorted(set(cs))
+
+        if not len(cs) > 0:
+            # Assume "2.7
+            return "2.7"
+
+        return cs
+
     def action_version(self):
         """
         Action PyPi Package version
