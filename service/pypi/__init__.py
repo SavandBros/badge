@@ -87,6 +87,14 @@ class PyPiService(ServiceBase):
 
         return "unknown"
 
+    def action_version(self):
+        """
+        Action PyPi Package version
+        """
+        self.set_badge_context(
+            'version',
+            self.package_data.latest_release_id.replace('-', '--')
+        )
 
     def action_wheel(self):
         """
