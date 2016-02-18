@@ -55,6 +55,44 @@ input.search:FOCUS {
     background: rgba(255, 255, 255, 0.5);
 }
 
+.panel-body {
+    padding: 8px 20px;
+}
+
+.panel p {
+    padding: 7px 0;
+    margin: 0;
+}
+
+.panel span {
+    padding: 0;
+}
+
+.panel span input {
+    border-top: 0;
+    border-bottom: 0;
+    border-color: #ddd;
+    margin: -8px;
+    height: 50px;
+    color: cadetblue;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+    -webkit-box-shadow: 0 0;
+            box-shadow: 0 0;
+}
+
+.panel span input:FOCUS {
+    background: #ddd;
+    border-color: #ddd;
+    -webkit-box-shadow: 0 0;
+            box-shadow: 0 0;
+}
+
+.panel span img {
+    padding: 7px 0;
+    max-width: 100%;
+}
+
 .footer {
     background: #303030;
     border-top: 1px solid #202020;
