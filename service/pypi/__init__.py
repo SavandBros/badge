@@ -113,6 +113,18 @@ class PyPiService(ServiceBase):
             self.package_data.latest_release_id.replace('-', '--')
         )
 
+    def action_py_versions(self):
+        """
+        Action PyPi Python Versions
+        """
+        versions = self.get_versions()
+        self.badge_color = painter_settings.COLOR_BLUE
+
+        if isinstance(versions, list):
+            versions = ", ".join(versions)
+
+        self.set_badge_context('python', versions)
+
     def action_wheel(self):
         """
         Action PyPi Wheel
