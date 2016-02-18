@@ -72,6 +72,20 @@ class PyPiService(ServiceBase):
         return "1", "unknown"
 
     def get_license(self):
+        """
+        Get the package license from PyPi.
+
+        :rtype: str
+        """
+        if (self.package_data.license
+            and '\n' not in self.package_data.license
+            and self.package_data.license.upper() != 'UNKNOWN'):
+            return self.package_data.license
+
+        if self.package_data.license_from_classifiers:
+            return self.package_data.license_from_classifiers
+
+        return "unknown"
 
     def action_egg(self):
         """
