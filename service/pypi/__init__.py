@@ -43,8 +43,17 @@ class PyPiService(ServiceBase):
 
     def get_implementations(self):
         """
+        Get supported Python Implementations.
+
+        :type: str or tuple of str
+        """
+        cs = self.package_data.python_implementations
         cs = [c.lower() for c in cs]
+
         if not len(cs) > 0:
+            # Assume CPython
+            cs = "cpython"
+
         return cs
 
     def get_status(self):
