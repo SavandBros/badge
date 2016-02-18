@@ -13,7 +13,7 @@ class ServiceBase(object):
     package_pulling_failed_key = 'error'
     package_pulling_failed_value = 'error'
     format = 'svg'
-    cash_it = False
+    cash_it = True
 
     def pull_package_data(self):
         """
