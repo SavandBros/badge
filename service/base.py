@@ -3,6 +3,7 @@ import logging
 from painter import settings as painter_settings
 from painter.draw import Draw
 
+
 class ServiceBase(object):
     badge_key = None
     badge_value = None
@@ -77,6 +78,21 @@ class ServiceBase(object):
             value_color=badge_color,
             value_text=badge_value
         )
+
+        return draw.as_svg() if self.format == 'svg' else draw.as_png()
+
+    def set_package_pulling_failed(self, failed=True):
+        """
+        :param failed: Either pulling the data failed or not, that's the thing.
+        :type failed: bool
+
+        :rtype: None
+        """
+        logging.error('Pulling package: "{}" failed '
+                      'from service: "{}"'.format(self.package_name,
+                                                  self.__class__.__name__))
+        self.package_pulling_failed = failed
+        self.package_data = None
 
     def set_badge_context(self, badge_key, badge_value):
         """
