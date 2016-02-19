@@ -1,0 +1,51 @@
+{
+  "info":{
+    "maintainer":null,
+    "docs_url":null,
+    "requires_python":null,
+    "maintainer_email":null,
+    "cheesecake_code_kwalitee_id":null,
+    "keywords":null,
+    "package_url":"http://pypi.python.org/pypi/html2text",
+    "author":"Alireza Savand",
+    "author_email":"alireza.savand@gmail.com",
+    "download_url":"UNKNOWN",
+    "platform":"OS Independent",
+    "version":"2016.1.8",
+    "cheesecake_documentation_id":null,
+    "_pypi_hidden":false,
+    "description": "",
+    "release_url":"http://pypi.python.org/pypi/html2text/2016.1.8",
+    "downloads":{
+      "last_month":67090,
+      "last_week":22529,
+      "last_day":6016
+    },
+    "_pypi_ordering":29,
+    "classifiers":[
+      "Development Status :: 5 - Production/Stable",
+      "Intended Audience :: Developers",
+      "License :: OSI Approved :: GNU General Public License (GPL)",
+      "Operating System :: OS Independent",
+      "Programming Language :: Python",
+      "Programming Language :: Python :: 2",
+      "Programming Language :: Python :: 2.4",
+      "Programming Language :: Python :: 2.5",
+      "Programming Language :: Python :: 2.6",
+      "Programming Language :: Python :: 2.7",
+      "Programming Language :: Python :: 3",
+      "Programming Language :: Python :: 3.0",
+      "Programming Language :: Python :: 3.1",
+      "Programming Language :: Python :: 3.2",
+      "Programming Language :: Python :: 3.3",
+      "Programming Language :: Python :: 3.4"
+    ],
+    "name":"html2text",
+    "bugtrack_url":null,
+    "license":"GNU GPL 3",
+    "summary":"Turn HTML into equivalent Markdown-structured text.",
+    "home_page":"https://github.com/Alir3z4/html2text/",
+    "cheesecake_installability_id":null
+  },
+  "releases": []
+}
