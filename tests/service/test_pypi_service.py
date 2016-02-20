@@ -97,3 +97,11 @@ class TestPyPiService(TestCase):
         self.assertEqual(self.pypi.badge_key, 'format')
         self.assertEqual(self.pypi.badge_value, 'source')
         self.assertEqual(self.pypi.badge_color, settings.COLOR_YELLOW)
+
+    def test_action_downloads(self):
+        self.pypi.action_downloads()
+
+        self.assertEqual(self.pypi.badge_key, 'downloads')
+        self.assertIsInstance(self.pypi.badge_value, str)
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_GREEN)
+
