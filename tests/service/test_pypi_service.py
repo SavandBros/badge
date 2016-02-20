@@ -56,3 +56,10 @@ class TestPyPiService(TestCase):
         self.assertEqual(self.pypi.badge_color, settings.COLOR_BLUE)
         self.assertEqual(self.pypi.badge_key, 'python')
 
+    def test_action_wheel(self):
+        self.pypi.action_wheel()
+
+        self.assertEqual(self.pypi.badge_key, 'wheel')
+        self.assertEqual(self.pypi.badge_value, 'no')
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_RED)
+
