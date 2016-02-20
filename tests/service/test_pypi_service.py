@@ -14,3 +14,6 @@ class TestPyPiService(TestCase):
     pypi.package_data = json2package(open(
         get_file_path_from_base('tests/service/dump_data/pypi_html2text.json')
     ).read())
+
+    def setUp(self):
+        self.pypi.badge_color = PyPiService.badge_color
