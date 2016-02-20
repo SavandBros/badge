@@ -58,6 +58,12 @@ input.search:FOCUS {
     background: rgba(255, 255, 255, 0.5);
 }
 
+.format-switcher {
+    position: relative;
+    top: 45px;
+    opacity: 0.9;
+}
+
 .panel-body {
     padding: 8px 20px;
 }
