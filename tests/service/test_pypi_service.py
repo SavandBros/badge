@@ -35,3 +35,10 @@ class TestPyPiService(TestCase):
         lie_sense = self.pypi.get_license()
 
         self.assertEqual(lie_sense, 'GNU GPL 3')
+
+    def test_get_versions(self):
+        versions = self.pypi.get_versions()
+
+        self.assertEqual(versions, [u'2.4', u'2.5', u'2.6', u'2.7',
+                                    u'3.0', u'3.1', u'3.2', u'3.3', u'3.4'])
+
