@@ -49,3 +49,10 @@ class TestPyPiService(TestCase):
         self.assertIsNotNone(self.pypi.badge_value)
         self.assertIsInstance(self.pypi.badge_value, basestring)
         self.assertIn('2016', self.pypi.badge_value)
+
+    def test_action_py_versions(self):
+        self.pypi.action_py_versions()
+
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_BLUE)
+        self.assertEqual(self.pypi.badge_key, 'python')
+
