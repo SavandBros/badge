@@ -77,3 +77,9 @@ class TestPyPiService(TestCase):
         self.assertEqual(self.pypi.badge_value, 'cpython')
         self.assertEqual(self.pypi.badge_color, settings.COLOR_BLUE)
 
+    def test_action_status(self):
+        self.pypi.action_status()
+
+        self.assertEqual(self.pypi.badge_key, 'status')
+        self.assertEqual(self.pypi.badge_value, 'stable')
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_BRIGHT_GREEN)
