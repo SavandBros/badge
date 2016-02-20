@@ -64,11 +64,15 @@ function search() {
         url: 'https://pypi.python.org/pypi/'+package+'/json',
         type: 'GET',
         success: function(result) {
+            
             $('.panel').css('opacity', 1);
+            currents.package = package;
             reinitialize(0, package);
         },
         error: function(result) {
+            
             $('.panel').css('opacity', 1);
+            currents.package = 'html2text';
             reinitialize(0, 'html2text');
             alert('Invalid package name.');
         }
@@ -81,8 +85,10 @@ function reinitialize(service_index, package) {
 
     for (action in actions) {
 
-        append_action(service_index, action, 1, package);
+        append_action(service_index, action, currents.format, package);
     }
+}
+
 function set_format(format_index) {
 
     // Reset varable
