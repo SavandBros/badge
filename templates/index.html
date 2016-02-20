@@ -50,6 +50,14 @@
                             <input onclick="this.select()" class="search form-control input-lg" value="html2text" placeholder="Name of package..." required>
                         
                         </form>
+                        <div class="btn-group pull-right format-switcher" data-toggle="buttons">
+                            <label class="btn btn-primary btn-sm"        onclick="set_format(0)">
+                                <input type="radio" name="options" autocomplete="off"> PNG
+                            </label>
+                            <label class="btn btn-primary btn-sm active" onclick="set_format(1)">
+                                <input type="radio" name="options" autocomplete="off"> SVG
+                            </label>
+                        </div>
                         
                     </section>
 
