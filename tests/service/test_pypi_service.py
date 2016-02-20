@@ -42,3 +42,10 @@ class TestPyPiService(TestCase):
         self.assertEqual(versions, [u'2.4', u'2.5', u'2.6', u'2.7',
                                     u'3.0', u'3.1', u'3.2', u'3.3', u'3.4'])
 
+    def test_action_version(self):
+        self.pypi.action_version()
+
+        self.assertEqual(self.pypi.badge_key, 'version')
+        self.assertIsNotNone(self.pypi.badge_value)
+        self.assertIsInstance(self.pypi.badge_value, basestring)
+        self.assertIn('2016', self.pypi.badge_value)
