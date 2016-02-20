@@ -83,4 +83,11 @@ function reinitialize(service_index, package) {
 
         append_action(service_index, action, 1, package);
     }
+function set_format(format_index) {
+
+    // Reset varable
+    currents.format = format_index;
+
+    // Change urls to the new format
+    reinitialize(0, currents.package);
 }
