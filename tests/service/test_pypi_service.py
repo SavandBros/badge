@@ -30,3 +30,8 @@ class TestPyPiService(TestCase):
         self.assertIsInstance(status, list)
         self.assertEqual(len(status), 2)
         self.assertEqual(status, ['5', 'Production/Stable'])
+
+    def test_get_license(self):
+        lie_sense = self.pypi.get_license()
+
+        self.assertEqual(lie_sense, 'GNU GPL 3')
