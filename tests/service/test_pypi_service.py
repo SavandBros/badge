@@ -69,3 +69,11 @@ class TestPyPiService(TestCase):
         self.assertEqual(self.pypi.badge_key, 'egg')
         self.assertEqual(self.pypi.badge_value, 'no')
         self.assertEqual(self.pypi.badge_color, settings.COLOR_BRIGHT_GREEN)
+
+    def test_action_implementation(self):
+        self.pypi.action_implementation()
+
+        self.assertEqual(self.pypi.badge_key, 'implementation')
+        self.assertEqual(self.pypi.badge_value, 'cpython')
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_BLUE)
+
