@@ -16,6 +16,12 @@ formats = [
     "png", "svg"
 ];
 
+currents = {
+    "service": 0,
+    "format":  1,
+    "package": "html2text",
+}
+
 function get_badge_url(service_index, action_index, format_index, package) {
 
     return 'http://badge.kloud51.com/'+services[service_index].slug+'/'+actions[action_index].slug+'/'+package+'/badge.'+formats[format_index];
