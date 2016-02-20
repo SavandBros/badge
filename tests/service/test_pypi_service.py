@@ -17,3 +17,8 @@ class TestPyPiService(TestCase):
 
     def setUp(self):
         self.pypi.badge_color = PyPiService.badge_color
+
+    def test_get_implementations(self):
+        implementations = self.pypi.get_implementations()
+
+        self.assertEqual(implementations, 'cpython')
