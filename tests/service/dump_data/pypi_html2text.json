@@ -47,5 +47,21 @@
     "home_page":"https://github.com/Alir3z4/html2text/",
     "cheesecake_installability_id":null
   },
-  "releases": []
+  "releases": {
+    "2016.1.8": [
+      {
+        "has_sig": false,
+        "upload_time": "2016-01-08T16:40:02",
+        "comment_text": "",
+        "python_version": "source",
+        "url": "https://pypi.python.org/packages/source/h/html2text/html2text-2016.1.8.tar.gz",
+        "md5_digest": "a1e9b15c2ad5643c95fe790fd4a5df61",
+        "downloads": 24067,
+        "filename": "html2text-2016.1.8.tar.gz",
+        "packagetype": "sdist",
+        "path": "source/h/html2text/html2text-2016.1.8.tar.gz",
+        "size": 43721
+      }
+    ]
+  }
 }
