@@ -22,3 +22,11 @@ class TestPyPiService(TestCase):
         implementations = self.pypi.get_implementations()
 
         self.assertEqual(implementations, 'cpython')
+
+    def test_get_status(self):
+        status = self.pypi.get_status()
+
+        self.assertIsNotNone(status)
+        self.assertIsInstance(status, list)
+        self.assertEqual(len(status), 2)
+        self.assertEqual(status, ['5', 'Production/Stable'])
