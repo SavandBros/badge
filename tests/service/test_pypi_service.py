@@ -90,3 +90,10 @@ class TestPyPiService(TestCase):
         self.assertEqual(self.pypi.badge_key, 'license')
         self.assertEqual(self.pypi.badge_value, 'GNU_GPL_3')
         self.assertEqual(self.pypi.badge_color, settings.COLOR_BLUE)
+
+    def test_action_format(self):
+        self.pypi.action_format()
+
+        self.assertEqual(self.pypi.badge_key, 'format')
+        self.assertEqual(self.pypi.badge_value, 'source')
+        self.assertEqual(self.pypi.badge_color, settings.COLOR_YELLOW)
