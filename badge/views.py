@@ -40,9 +40,6 @@ def service_badge(request, service, action, package, extension):
         request.setResponseCode(401)
         return "{} is not a valid action.".format(action)
 
-    ext = mimetypes.types_map[".{0}".format(extension)]
-    request.headers.update({'content-type': ext})
-
     service_class = service_reg['class']
     service_class = service_class(package, format=extension, extra_context=request.args)
     """:type service_class: service.base.ServiceBase"""
@@ -51,6 +48,9 @@ def service_badge(request, service, action, package, extension):
     if service_class.package_pulling_failed:
         request.setResponseCode(404)
         return "Couldn't pull data from {} for package {}".format(service, package)
+
+    ext = mimetypes.types_map[".{0}".format(extension)]
+    request.headers.update({'content-type': ext})
 
     getattr(service_class, service_reg['actions'][action])()
     img = service_class.draw_badge()
