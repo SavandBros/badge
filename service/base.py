@@ -5,6 +5,20 @@ from painter.draw import Draw
 
 
 class ServiceBase(object):
+    """
+    :type service_url: str
+    :type badge_key: str
+    :type badge_value: str
+    :type badge_color: str
+    :type package_name: str
+    :type package_data: dict
+    :type package_pulling_failed: bool
+    :type package_pulling_failed_key: str
+    :type package_pulling_failed_value: str
+    :type format: str
+    :type cash_it: bool
+    :type extra_context: dict
+    """
     service_url = None
     badge_key = None
     badge_value = None
