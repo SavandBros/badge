@@ -219,3 +219,17 @@ class ServiceBase(object):
         """
         self.badge_key = badge_key
         self.badge_value = badge_value
+    def clean_validate_package_data(self, package_data):
+        """
+        Clean and Validate package data.
+
+        * If the package data is broken, not complete then it should return error.
+        * If the package data comes with extra stuff, then they should be
+            simply removed and cleaned.
+        * While cleaning, only return stuff that needed for making badge.
+
+        :type package_data: dict
+
+        :rtype: dict or bool
+        """
+        raise NotImplementedError
