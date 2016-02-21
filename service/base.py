@@ -32,7 +32,8 @@ class ServiceBase(object):
     cash_it = True
     extra_context = {}
 
-    def __init__(self, package_name, format=None, cash_it=True, extra_context=None, *args, **kwargs):
+    def __init__(self, package_name, format=None, cash_it=True,
+                 extra_context=None, *args, **kwargs):
         self.package_name = package_name
         self.format = format or self.format
         self.cash_it = cash_it
