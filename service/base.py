@@ -79,6 +79,29 @@ class ServiceBase(object):
         :rtype: method
         """
         return json.loads
+
+    def parse_package_data(self, raw_data):
+        """
+        A method for parsing the raw data from API.
+        The default method of parsing is JSON.
+
+        In this method we'll be using `json` from Python Standard Library.
+        Each service should implement this method.
+
+        Should return the parsed data, if failed, `False` should be returned.
+
+        :type raw_data: str or object
+
+        :rtype: bool or dict
+        """
+        try:
+            return self.package_data_parser()(raw_data)
+        except ValueError as exc:
+            logging.error("Error in parsing the data.\n"
+                          "Traceback: {}".format(str(exc)))
+
+            return False
+
     def pull_package_data(self):
         """
         Pulling package data from hosting service that keeps the packages.
