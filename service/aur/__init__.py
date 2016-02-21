@@ -45,13 +45,13 @@ class AURService(ServiceBase):
         Action AUR NumVotes
         Showing number of votes
         """
-        self.set_badge_context('votes', self.package_data.get('NumVotes'))
+        self.set_badge_context('votes', str(self.package_data.get('NumVotes', 0)))
 
     def action_popularity(self):
         """
         Action AUR Popularity
         """
-        self.set_badge_context('popularity', self.package_data.get('Popularity'))
+        self.set_badge_context('popularity', str(self.package_data.get('Popularity')))
 
     def action_status(self):
         """
