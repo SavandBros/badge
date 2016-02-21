@@ -4,13 +4,17 @@ Badge/Pins/Shields/Medal or what so ever for projects.
 
 Services Supported:
 
-* PyPi
-* More coming soon... (maybe!)
+* Python [PyPi](https://pypi.python.org/)
+* ArchLinux [AUR](https://aur.archlinux.org/)
 
 
 ### Badges
 
-### PyPi
+#### PyPi
+
+PyPi badges are the first of course, this project has been written in Python.
+Currently below actions are supported.
+
 
 * Downloads: ![d, download](http://badge.kloud51.com/pypi/d/html2text/badge.svg)
   * URL:  http://badge.kloud51.com/pypi/d/html2text/badge.svg
