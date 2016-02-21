@@ -116,7 +116,32 @@ class ServiceBase(object):
         :returns: A dictionary of required info for making the badge.
         :rtype: dict
         """
-        raise NotImplementedError
+        cache_key = self.get_cache_key()
+        package_data = {}
+
+        if package_data:
+            return self.parse_package_data(package_data)
+
+        raw_content = self.get_package_raw_content()
+        if raw_content:
+            package_data = self.parse_package_data(raw_content)
+
+        if package_data:
+            package_data = self.clean_validate_package_data(package_data)
+
+        if package_data is not False:
+            if self.cash_it:
+                logging.debug("Caching pkg {} from service: {}".format(
+                    self.package_name, self.__class__.__name__))
+
+                redis.set(self.package_name, raw_content)
+                redis.expire(cache_key, settings.REDIS_EXPIRE)
+            self.package_data = package_data
+
+        if not package_data:
+            self.set_package_pulling_failed()
+        else:
+            return self.package_data
 
     def draw_badge(self):
         # shield_url = settings.SHIELD_URL % (
