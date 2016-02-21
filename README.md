@@ -1,4 +1,4 @@
-##Badge.Kloud51.com
+# Badge.Kloud51.com
 
 Badge/Pins/Shields/Medal or what so ever for projects.
 
@@ -8,9 +8,9 @@ Services Supported:
 * ArchLinux [AUR](https://aur.archlinux.org/)
 
 
-### Badges
+## Badges
 
-#### PyPi
+### PyPi
 
 PyPi badges are the first of course, this project has been written in Python.
 Currently below actions are supported.
@@ -68,3 +68,20 @@ is Kloud51 customized ArchLinux 64 bit backed by `OpenVZ`.
 * License: ![l, license](http://badge.kloud51.com/aur/l/git-cola/badge.svg)
   * URL: http://badge.kloud51.com/aur/l/git-cola/badge.svg
   * Actions: `l`, `license`
+
+
+
+## Tests
+
+We're writing tests with `unittest` library provided by Python Standard Library.
+Running the test suit has been implemented via a simple Fabric task.
+
+To run the `badge` tests:
+
+```
+fab run_tests
+```
+
+## Licence
+
+Badge is licensed and distributed under MIT License.
