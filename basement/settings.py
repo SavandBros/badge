@@ -4,7 +4,6 @@ import os
 from redis import Redis
 
 PYPI_URL = "https://pypi.python.org/pypi/%s/json"
-AUR_URL = 'https://aur.archlinux.org//rpc/?v=5&type=info&arg[]={0}'
 
 FILE_CACHE = "/tmp/badge.py/"
 CACHE_TIME = (60 * 60) * 24  # 24 hours
