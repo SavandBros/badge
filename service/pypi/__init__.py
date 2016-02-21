@@ -18,7 +18,7 @@ from service.base import ServiceBase
 
 class PyPiService(ServiceBase):
     """
-    Get the pypi json data for the package #fuck, and process.
+    PyPi Service integration
     """
     def pull_package_data(self):
         """

@@ -1,0 +1,45 @@
+{
+  "version":5,
+  "type":"multiinfo",
+  "resultcount":1,
+  "results":[
+    {
+      "ID":274716,
+      "Name":"git-cola",
+      "PackageBaseID":22021,
+      "PackageBase":"git-cola",
+      "Version":"2.5-1",
+      "Description":"A powerful GUI for Git",
+      "URL":"http:\/\/git-cola.github.com\/",
+      "NumVotes":165,
+      "Popularity":4.554743,
+      "OutOfDate":null,
+      "Maintainer":"nobody44",
+      "FirstSubmitted":1228487903,
+      "LastModified":1455362440,
+      "URLPath":"\/cgit\/aur.git\/snapshot\/git-cola.tar.gz",
+      "Depends":[
+        "git",
+        "python-pyqt4>=4.4",
+        "icu"
+      ],
+      "MakeDepends":[
+        "asciidoc",
+        "docbook-xsl",
+        "rsync",
+        "xmlto",
+        "python-sphinx>=1.1.3"
+      ],
+      "OptDepends":[
+        "python-pyinotify: for inotify support>=0.7.1",
+        "tk: to use the built-in ssh-askpass handler"
+      ],
+      "License":[
+        "GPL"
+      ],
+      "Keywords":[
+
+      ]
+    }
+  ]
+}

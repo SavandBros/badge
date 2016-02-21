@@ -4,7 +4,8 @@ import os
 from redis import Redis
 
 PYPI_URL = "https://pypi.python.org/pypi/%s/json"
-# SHIELD_URL = "http://localhost:9000/badge/%s-%s-%s.%s"  # pypip.in uses a local version of img.shields.io
+AUR_URL = 'https://aur.archlinux.org//rpc/?v=5&type=info&arg[]={0}'
+
 FILE_CACHE = "/tmp/badge.py/"
 CACHE_TIME = (60 * 60) * 24  # 24 hours
 REDIS_EXPIRE = 60 * 10  # 10 minutes
