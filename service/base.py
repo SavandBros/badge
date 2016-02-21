@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
+import json
+import hashlib
+
+import requests
+
+from basement import settings
+from basement.settings import redis
 from painter import settings as painter_settings
 from painter.draw import Draw
 
@@ -47,6 +54,22 @@ class ServiceBase(object):
         :rtype: str
         """
         return self.service_url.format(self.package_name)
+
+    def get_package_raw_content(self):
+        """
+        Get package raw content from the service.
+        The content are usually in text, no parsing should happen here and
+        this is the only to fire up some HTTP request.
+
+        :rtype: str or None
+        """
+        response = requests.get(self.get_package_url())
+
+        if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
+            self.set_package_pulling_failed()
+            return None
+
+        return response.content
     def pull_package_data(self):
         """
         Pulling package data from hosting service that keeps the packages.
