@@ -82,6 +82,6 @@ To run the `badge` tests:
 fab run_tests
 ```
 
-## Licence
+## License
 
 Badge is licensed and distributed under MIT License.
