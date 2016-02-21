@@ -26,12 +26,12 @@ class TestAURService(TestCase):
     def test_action_num_votes(self):
         self.pypi.action_num_votes()
 
-        self.assertEqual(self.pypi.badge_value, self.package_data['NumVotes'])
+        self.assertEqual(self.pypi.badge_value, str(self.package_data['NumVotes']))
 
     def test_action_popularity(self):
         self.pypi.action_popularity()
 
-        self.assertEqual(self.pypi.badge_value, self.package_data['Popularity'])
+        self.assertEqual(self.pypi.badge_value, str(self.package_data['Popularity']))
 
     def test_action_status(self):
         self.pypi.action_status()
