@@ -3,7 +3,6 @@ import os
 
 from redis import Redis
 
-PYPI_URL = "https://pypi.python.org/pypi/%s/json"
 
 FILE_CACHE = "/tmp/badge.py/"
 CACHE_TIME = (60 * 60) * 24  # 24 hours

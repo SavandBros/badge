@@ -6,12 +6,9 @@ PyPi
 Everything around PyPi
 """
 
-import requests
 from yarg.package import json2package
 
-from basement.settings import redis
 from basement.utils import escape_shield_query, intword
-from basement import settings
 from painter import settings as painter_settings
 from service.base import ServiceBase
 
@@ -20,26 +17,21 @@ class PyPiService(ServiceBase):
     """
     PyPi Service integration
     """
-    def pull_package_data(self):
+    service_url = "https://pypi.python.org/pypi/{0}/json"
+
+    def package_data_parser(self):
         """
+        :rtype: method
+        """
+        return json2package
+
+    def clean_validate_package_data(self, package_data):
+        """
+        :type package_data: dict
         :rtype: dict
         """
-        pkg_url = settings.PYPI_URL % self.package_name
-        r_data = redis.get(self.package_name)
-
-        if r_data:
-            self.package_data = json2package(r_data)
-
-        response = requests.get(pkg_url)
-
-        if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
-            self.set_package_pulling_failed()
-        else:
-            redis.set(self.package_name, response.content)
-            redis.expire(self.package_name, settings.REDIS_EXPIRE)
-            self.package_data = json2package(response.content)
-
-        return self.package_data
+        # TODO: Return only what's needed
+        return package_data
 
     def get_implementations(self):
         """
