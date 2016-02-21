@@ -30,6 +30,7 @@ class ServiceBase(object):
     package_pulling_failed_value = 'error'
     format = 'svg'
     cash_it = True
+    cash_key = None
     extra_context = {}
 
     def __init__(self, package_name, format=None, cash_it=True,
