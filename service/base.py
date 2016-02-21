@@ -219,6 +219,18 @@ class ServiceBase(object):
         """
         self.badge_key = badge_key
         self.badge_value = badge_value
+
+    def get_cache_key(self):
+        """
+        Create cache key from :method:`get_package_url`
+
+        :rtype: str
+        """
+        if not self.cash_key:
+            self.cash_key = hashlib.md5(self.get_package_url()).hexdigest()
+
+        return self.cash_key
+
     def clean_validate_package_data(self, package_data):
         """
         Clean and Validate package data.
