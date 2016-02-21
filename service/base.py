@@ -1,10 +1,32 @@
 # -*- coding: utf-8 -*-
 import logging
+import json
+import hashlib
+
+import requests
+
+from basement import settings
+from basement.settings import redis
 from painter import settings as painter_settings
 from painter.draw import Draw
 
 
 class ServiceBase(object):
+    """
+    :type service_url: str
+    :type badge_key: str
+    :type badge_value: str
+    :type badge_color: str
+    :type package_name: str
+    :type package_data: dict
+    :type package_pulling_failed: bool
+    :type package_pulling_failed_key: str
+    :type package_pulling_failed_value: str
+    :type format: str
+    :type cash_it: bool
+    :type extra_context: dict
+    """
+    service_url = None
     badge_key = None
     badge_value = None
     badge_color = painter_settings.COLOR_GREEN
@@ -15,13 +37,70 @@ class ServiceBase(object):
     package_pulling_failed_value = 'error'
     format = 'svg'
     cash_it = True
+    cash_key = None
     extra_context = {}
 
-    def __init__(self, package_name, format=None, cash_it=True, extra_context=None, *args, **kwargs):
+    def __init__(self, package_name, format=None, cash_it=True,
+                 extra_context=None, *args, **kwargs):
         self.package_name = package_name
         self.format = format or self.format
         self.cash_it = cash_it
         self.extra_context = extra_context or {}
+
+    def get_package_url(self):
+        """
+        Build package url from its service.
+
+        :rtype: str
+        """
+        return self.service_url.format(self.package_name)
+
+    def get_package_raw_content(self):
+        """
+        Get package raw content from the service.
+        The content are usually in text, no parsing should happen here and
+        this is the only to fire up some HTTP request.
+
+        :rtype: str or None
+        """
+        response = requests.get(self.get_package_url())
+
+        if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
+            self.set_package_pulling_failed()
+            return None
+
+        return response.content
+
+    def package_data_parser(self):
+        """
+        Package raw content parser method.
+        By default json.loads
+
+        :rtype: method
+        """
+        return json.loads
+
+    def parse_package_data(self, raw_data):
+        """
+        A method for parsing the raw data from API.
+        The default method of parsing is JSON.
+
+        In this method we'll be using `json` from Python Standard Library.
+        Each service should implement this method.
+
+        Should return the parsed data, if failed, `False` should be returned.
+
+        :type raw_data: str or object
+
+        :rtype: bool or dict
+        """
+        try:
+            return self.package_data_parser()(raw_data)
+        except ValueError as exc:
+            logging.error("Error in parsing the data.\n"
+                          "Traceback: {}".format(str(exc)))
+
+            return False
 
     def pull_package_data(self):
         """
@@ -37,7 +116,32 @@ class ServiceBase(object):
         :returns: A dictionary of required info for making the badge.
         :rtype: dict
         """
-        raise NotImplementedError
+        cache_key = self.get_cache_key()
+        package_data = {}
+
+        if package_data:
+            return self.parse_package_data(package_data)
+
+        raw_content = self.get_package_raw_content()
+        if raw_content:
+            package_data = self.parse_package_data(raw_content)
+
+        if package_data:
+            package_data = self.clean_validate_package_data(package_data)
+
+        if package_data is not False:
+            if self.cash_it:
+                logging.debug("Caching pkg {} from service: {}".format(
+                    self.package_name, self.__class__.__name__))
+
+                redis.set(self.package_name, raw_content)
+                redis.expire(cache_key, settings.REDIS_EXPIRE)
+            self.package_data = package_data
+
+        if not package_data:
+            self.set_package_pulling_failed()
+        else:
+            return self.package_data
 
     def draw_badge(self):
         # shield_url = settings.SHIELD_URL % (
@@ -115,3 +219,29 @@ class ServiceBase(object):
         """
         self.badge_key = badge_key
         self.badge_value = badge_value
+
+    def get_cache_key(self):
+        """
+        Create cache key from :method:`get_package_url`
+
+        :rtype: str
+        """
+        if not self.cash_key:
+            self.cash_key = hashlib.md5(self.get_package_url()).hexdigest()
+
+        return self.cash_key
+
+    def clean_validate_package_data(self, package_data):
+        """
+        Clean and Validate package data.
+
+        * If the package data is broken, not complete then it should return error.
+        * If the package data comes with extra stuff, then they should be
+            simply removed and cleaned.
+        * While cleaning, only return stuff that needed for making badge.
+
+        :type package_data: dict
+
+        :rtype: dict or bool
+        """
+        raise NotImplementedError

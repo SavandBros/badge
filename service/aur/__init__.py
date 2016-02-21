@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
 
-import requests
-
-from basement import settings
-from basement.settings import redis
 from painter import settings as painter_settings
 from service.base import ServiceBase
 
@@ -13,26 +8,26 @@ class AURService(ServiceBase):
     """
     AUR Service Integration
     """
-    def pull_package_data(self):
+    service_url = 'https://aur.archlinux.org//rpc/?v=5&type=info&arg[]={0}'
+
+    def clean_validate_package_data(self, package_data):
         """
+        :type package_data: dict
         :rtype: dict
         """
-        pkg_url = settings.AUR_URL.format(self.package_name)
-        r_data = redis.get(self.package_name)
+        if package_data['resultcount'] == 0:
+            return False
 
-        if r_data:
-            self.package_data = json.loads(r_data)['results'][0]
+        package_data = package_data['results'][0]
 
-        response = requests.get(pkg_url)
-
-        if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
-            self.set_package_pulling_failed()
-        else:
-            redis.set(self.package_name, response.content)
-            redis.expire(self.package_name, settings.REDIS_EXPIRE)
-            self.package_data = json.loads(response.content)['results'][0]
-
-        return self.package_data
+        return {
+            'Version': package_data.get('Version'),
+            'NumVotes': package_data.get('NumVotes', 0),
+            'Popularity': package_data.get('Popularity'),
+            'OutOfDate': package_data.get('OutOfDate', None),
+            'License': package_data.get('License'),
+            'Maintainer': package_data.get('Maintainer'),
+        }
 
     def action_version(self):
         """
