@@ -38,6 +38,13 @@ class ServiceBase(object):
         self.cash_it = cash_it
         self.extra_context = extra_context or {}
 
+    def get_package_url(self):
+        """
+        Build package url from its service.
+
+        :rtype: str
+        """
+        return self.service_url.format(self.package_name)
     def pull_package_data(self):
         """
         Pulling package data from hosting service that keeps the packages.
