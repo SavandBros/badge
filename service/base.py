@@ -70,6 +70,15 @@ class ServiceBase(object):
             return None
 
         return response.content
+
+    def package_data_parser(self):
+        """
+        Package raw content parser method.
+        By default json.loads
+
+        :rtype: method
+        """
+        return json.loads
     def pull_package_data(self):
         """
         Pulling package data from hosting service that keeps the packages.
