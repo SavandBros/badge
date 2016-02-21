@@ -5,6 +5,7 @@ from painter.draw import Draw
 
 
 class ServiceBase(object):
+    service_url = None
     badge_key = None
     badge_value = None
     badge_color = painter_settings.COLOR_GREEN
