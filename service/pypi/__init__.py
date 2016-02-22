@@ -121,6 +121,11 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Wheel
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('wheel', 'unknown')
+            return
+
         has_wheel = self.package_data.has_wheel
         self.badge_color = (painter_settings.COLOR_BRIGHT_GREEN
                             if has_wheel else painter_settings.COLOR_RED)
@@ -133,6 +138,10 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Egg
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('egg', 'unknown')
+            return
 
         has_egg = self.package_data.has_egg
         self.badge_color = (painter_settings.COLOR_RED
@@ -187,6 +196,11 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Format
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('format', 'unknown')
+            return
+
         has_egg = self.package_data.has_egg
         color = painter_settings.COLOR_YELLOW
         badge_value = "source"
