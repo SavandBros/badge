@@ -50,7 +50,7 @@ function append_service(service_index) {
     $('.services').append('<li role="presentation" class="active"><a class="bg-me">'+services[service_index].title+'</a></li>');
 }
 
-function search() {
+function search(event) {
 
     event.preventDefault();
 
@@ -64,13 +64,13 @@ function search() {
         url: 'https://pypi.python.org/pypi/'+package+'/json',
         type: 'GET',
         success: function(result) {
-            
+
             $('.panel').css('opacity', 1);
             currents.package = package;
             reinitialize(0, package);
         },
         error: function(result) {
-            
+
             $('.panel').css('opacity', 1);
             currents.package = 'html2text';
             reinitialize(0, 'html2text');
