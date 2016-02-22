@@ -67,29 +67,57 @@ function append_action(service, action_index, format_index, package) {
 
 function search(event) {
 
+    // Prevent default submit behavior
     event.preventDefault();
 
+    // Get package name from search input
     var package = $('input.search').val();
 
-    $('input.search').val('');
+    // Decrease opacity of badges for loading effect
     $('.panel').css('opacity', 0.4);
+
+    // Empty search input
+    $('input.search').val('');
+
+    // Remove images
     $('.badge-image').attr('src', '');
 
+    // Request and check for package existence
     $.ajax({
-        url: 'https://pypi.python.org/pypi/'+package+'/json',
-        type: 'GET',
+
+        // Type of request
+        type: 'HEAD',
+
+        // Check for a badge
+        url: get_badge_url(currents.service, 0, 0, package),
+
+        // Valid package
         success: function(result) {
 
+            // Reset loading effect
             $('.panel').css('opacity', 1);
+
+            // Save package to current settings
             currents.package = package;
-            reinitialize(0, package);
+
+            // Reinit all badges for package
+            reinitialize(currents.service, package);
         },
+
+        // Invalid package
         error: function(result) {
 
+            // Reset loading effect
             $('.panel').css('opacity', 1);
-            currents.package = 'html2text';
-            reinitialize(0, 'html2text');
-            alert('Invalid package name.');
+
+            // Revert to default package
+            currents.package = services[currents.service].default;
+
+            // Reinit all default badges
+            reinitialize(currents.service, currents.package);
+
+            // Alert
+            alert('Oh... Invalid package of "'+currents.service+'" service.');
         }
     });
 }
