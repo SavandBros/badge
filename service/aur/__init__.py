@@ -76,6 +76,7 @@ class AURService(ServiceBase):
         """
         Action AUR License
         """
+        self.badge_color = painter_settings.COLOR_BLUE
         self.set_badge_context(
             'license',
             self.package_data.get('License')[0]
