@@ -42,100 +42,98 @@
 
                 <div class="main">
 
-                    <section class="search">
+                    <div class="format-switcher btn-group pull-right" data-toggle="buttons">
+
+                        <label class="btn btn-success    btn-sm" onclick="set_format(0)">
+                            <input type="radio" name="options" autocomplete="off"> PNG
+                        </label>
+
+                        <label class="btn btn-success    btn-sm active" onclick="set_format(1)">
+                            <input type="radio" name="options" autocomplete="off"> SVG
+                        </label>
+
+                    </div>
+
+                    <ul class="services nav nav-tabs">
+                        <li data-toggle="tab" onclick="set_service('pypi')" class="active"><a class="bg-me">PyPi</a></li>
+                        <li data-toggle="tab" onclick="set_service('aur')"                ><a class="bg-me">AUR</a></li>
+                    </ul>
+
+                    <div class="search">
 
                         <form onsubmit="return search(event)">
 
-                            <input onclick="this.select()" class="search form-control input-lg" value="html2text" placeholder="Name of package..." required>
+                            <input onclick="this.select()" class="search form-control input-lg" value="html2text" placeholder="Package..." required>
 
                         </form>
 
-                        <div class="btn-group pull-right format-switcher" data-toggle="buttons">
-                            <label class="btn btn-primary btn-sm"        onclick="set_format(0)">
-                                <input type="radio" name="options" autocomplete="off"> PNG
-                            </label>
-                            <label class="btn btn-primary btn-sm active" onclick="set_format(1)">
-                                <input type="radio" name="options" autocomplete="off"> SVG
-                            </label>
+                    </div>
+
+                    <div class="actions">
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Version</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
+                            </span>
                         </div>
-
-                    </section>
-
-                    <section class="urls">
-
-                        <ul class="nav nav-tabs services">
-                            <li role="presentation" class="active"><a class="bg-me">PyPi</a></li>
-                        </ul>
-
-                        <br>
-
-                        <div class="actions">
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Version</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/v/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Downloads</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Wheel</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">License</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Format</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Python Versions</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/py_versions/html2text/badge.svg">
-                                </span>
-                            </div>
-                            <div class="panel panel-default panel-body">
-                                <p class="col-xs-2">Status</p>
-                                <span class="col-xs-8">
-                                    <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
-                                </span>
-                                <span class="col-xs-2">
-                                    <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
-                                </span>
-                            </div>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Downloads</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/d/html2text/badge.svg">
+                            </span>
                         </div>
-
-                    </section>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Wheel</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/w/html2text/badge.svg">
+                            </span>
+                        </div>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">License</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/l/html2text/badge.svg">
+                            </span>
+                        </div>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Format</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                            </span>
+                        </div>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Python Versions</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/f/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/py_versions/html2text/badge.svg">
+                            </span>
+                        </div>
+                        <div class="panel panel-default panel-body">
+                            <p class="col-xs-2">Status</p>
+                            <span class="col-xs-8">
+                                <input onclick="this.select()" class="form-control badge-url" readonly="" value="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
+                            </span>
+                            <span class="col-xs-2">
+                                <img class="pull-right badge-image" src="http://badge.kloud51.com/pypi/s/html2text/badge.svg">
+                            </span>
+                        </div>
+                    </div>
 
                 </div>
 
