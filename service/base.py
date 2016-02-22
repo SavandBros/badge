@@ -2,6 +2,7 @@
 import logging
 import json
 import hashlib
+import pickle
 
 import requests
 
@@ -117,10 +118,12 @@ class ServiceBase(object):
         :rtype: dict
         """
         cache_key = self.get_cache_key()
-        package_data = {}
+        package_data = redis.get(cache_key)
 
         if package_data:
-            return self.parse_package_data(package_data)
+            logging.info("Getting {0} from cache".format(self.package_name))
+            self.package_data = pickle.loads(package_data)
+            return self.package_data
 
         raw_content = self.get_package_raw_content()
         if raw_content:
@@ -131,10 +134,10 @@ class ServiceBase(object):
 
         if package_data is not False:
             if self.cash_it:
-                logging.debug("Caching pkg {} from service: {}".format(
+                logging.info("Caching pkg {} from service: {}".format(
                     self.package_name, self.__class__.__name__))
 
-                redis.set(self.package_name, raw_content)
+                redis.set(cache_key, pickle.dumps(package_data))
                 redis.expire(cache_key, settings.REDIS_EXPIRE)
             self.package_data = package_data
 
