@@ -78,6 +78,17 @@ input.search:FOCUS {
     opacity: 0.9;
 }
 
+.services li a {
+    border-color: transparent transparent #ddd;
+    cursor: pointer;
+    color: #777;
+}
+
+.services li a:HOVER,
+.services li.active a {
+    color: #5DC63D !important;
+}
+
 .panel-body {
     padding: 8px 20px;
 }
