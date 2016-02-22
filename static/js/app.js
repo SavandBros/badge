@@ -1,40 +1,60 @@
-services = [
-    {'slug': 'pypi', 'title': 'PyPi'}
-];
+// Supported services and badges
+services = {
+    "pypi": {
+        'title': 'PyPi',
+        'default': 'html2text',
+        'actions': [
+            {'slug': 'v',           'title': 'Version'        },
+            {'slug': 'd',           'title': 'Downloads'      },
+            {'slug': 'w',           'title': 'Wheel'          },
+            {'slug': 'l',           'title': 'License'        },
+            {'slug': 'f',           'title': 'Format'         },
+            {'slug': 'py_versions', 'title': 'Python Versions'},
+            {'slug': 's',           'title': 'Status'         },
+            {'slug': 'e',           'title': 'Egg'            }
+        ]
+    },
+    "aur": {
+        'title': 'AUR',
+        'default': 'git-cola',
+        'actions': [
+            {'slug': 'v',           'title': 'Version'        },
+            {'slug': 's',           'title': 'Status'         },
+            {'slug': 'num_votes',   'title': 'Votes'          },
+            {'slug': 'p',           'title': 'Popularity'     },
+            {'slug': 'm',           'title': 'Maintainer'     }
+        ]
+    }
+};
 
-actions = [
-    {'slug': 'v',           'title': 'Version'        },
-    {'slug': 'd',           'title': 'Downloads'      },
-    {'slug': 'w',           'title': 'Wheel'          },
-    {'slug': 'l',           'title': 'License'        },
-    {'slug': 'f',           'title': 'Format'         },
-    {'slug': 'py_versions', 'title': 'Python Versions'},
-    {'slug': 's',           'title': 'Status'         }
-];
-
+// Supported formats
 formats = [
     "png", "svg"
 ];
 
+// Setting variables
 currents = {
-    "service": 0,
+    "service": "pypi",
     "format":  1,
-    "package": "html2text",
+    "package": services.pypi.default,
 }
 
-function get_badge_url(service_index, action_index, format_index, package) {
+function get_badge_url(service, action_index, format_index, package) {
 
-    return 'http://badge.kloud51.com/'+services[service_index].slug+'/'+actions[action_index].slug+'/'+package+'/badge.'+formats[format_index];
+    // Return a proper url of the badge based on it's service and package
+    return 'http://badge.kloud51.com/'+service+'/'+services[service].actions[action_index].slug+'/'+package+'/badge.'+formats[format_index];
 }
 
-function append_action(service_index, action_index, format_index, package) {
+function append_action(service, action_index, format_index, package) {
 
-    var title = actions[action_index].title;
-    var url   = get_badge_url(service_index, action_index, format_index, package);
+    // Shortening data
+    var action = services[service].actions[action_index].title;
+    var url    = get_badge_url(service, action_index, format_index, package);
 
+    // Appending to page
     $('.actions').append('\
         <div class="panel panel-default panel-body">\
-            <p class="col-md-2">'+title+'</p>\
+            <p class="col-md-2">'+action+'</p>\
             <span class="col-md-8">\
                 <input onclick="this.select()" class="form-control badge-url" readonly value="'+url+'">\
             </span>\
@@ -45,55 +65,93 @@ function append_action(service_index, action_index, format_index, package) {
     ');
 }
 
-function append_service(service_index) {
-
-    $('.services').append('<li role="presentation" class="active"><a class="bg-me">'+services[service_index].title+'</a></li>');
-}
-
 function search(event) {
 
+    // Prevent default submit behavior
     event.preventDefault();
 
+    // Get package name from search input
     var package = $('input.search').val();
 
-    $('input.search').val('');
+    // Decrease opacity of badges for loading effect
     $('.panel').css('opacity', 0.4);
+
+    // Empty search input
+    $('input.search').val('');
+
+    // Remove images
     $('.badge-image').attr('src', '');
 
+    // Request and check for package existence
     $.ajax({
-        url: 'https://pypi.python.org/pypi/'+package+'/json',
-        type: 'GET',
+
+        // Type of request
+        type: 'HEAD',
+
+        // Check for a badge
+        url: get_badge_url(currents.service, 0, 0, package),
+
+        // Valid package
         success: function(result) {
 
+            // Reset loading effect
             $('.panel').css('opacity', 1);
+
+            // Save package to current settings
             currents.package = package;
-            reinitialize(0, package);
+
+            // Reinit all badges for package
+            reinitialize(currents.service, package);
         },
+
+        // Invalid package
         error: function(result) {
 
+            // Reset loading effect
             $('.panel').css('opacity', 1);
-            currents.package = 'html2text';
-            reinitialize(0, 'html2text');
-            alert('Invalid package name.');
+
+            // Revert to default package
+            currents.package = services[currents.service].default;
+
+            // Reinit all default badges
+            reinitialize(currents.service, currents.package);
+
+            // Alert
+            alert('Oh... Invalid package of "'+currents.service+'" service.');
         }
     });
 }
 
-function reinitialize(service_index, package) {
+function reinitialize(service, package) {
 
+    // Reset badges
     $('.actions').html('');
 
-    for (action in actions) {
+    // Reset input value
+    $('input.search').val(package);
 
-        append_action(service_index, action, currents.format, package);
-    }
+    // Append all service badges to page based on the new settings
+    for (action in services[service].actions) 
+        append_action(service, action, currents.format, package);
+}
+
+function set_service(service) {
+
+    // Save the service
+    currents.service = service;
+
+    // Revert to default package
+    currents.package = services[currents.service].default;
+
+    // Change badges based on format
+    reinitialize(currents.service, currents.package);
 }
 
 function set_format(format_index) {
 
-    // Reset varable
+    // Save the format
     currents.format = format_index;
 
-    // Change urls to the new format
-    reinitialize(0, currents.package);
+    // Change badges based on format
+    reinitialize(currents.service, currents.package);
 }
