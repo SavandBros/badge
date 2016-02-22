@@ -19,7 +19,6 @@ class ServiceBase(object):
     :type badge_value: str
     :type badge_color: str
     :type package_name: str
-    :type package_data: dict
     :type package_pulling_failed: bool
     :type package_pulling_failed_key: str
     :type package_pulling_failed_value: str

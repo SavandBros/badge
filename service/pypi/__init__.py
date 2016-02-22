@@ -121,6 +121,11 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Wheel
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('wheel', 'unknown')
+            return
+
         has_wheel = self.package_data.has_wheel
         self.badge_color = (painter_settings.COLOR_BRIGHT_GREEN
                             if has_wheel else painter_settings.COLOR_RED)
@@ -133,6 +138,10 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Egg
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('egg', 'unknown')
+            return
 
         has_egg = self.package_data.has_egg
         self.badge_color = (painter_settings.COLOR_RED
@@ -187,6 +196,11 @@ class PyPiService(ServiceBase):
         """
         Action PyPi Format
         """
+        if self.is_package_latest_release_invalid():
+            self.badge_color = painter_settings.COLOR_RED
+            self.set_badge_context('format', 'unknown')
+            return
+
         has_egg = self.package_data.has_egg
         color = painter_settings.COLOR_YELLOW
         badge_value = "source"
@@ -215,3 +229,21 @@ class PyPiService(ServiceBase):
         downloads = intword(downloads)
 
         self.set_badge_context("downloads", "{}/{}".format(downloads, period))
+
+    def is_package_latest_release_invalid(self):
+        """
+        Since #https://github.com/SavandBros/badge/issues/44 it
+        seems the latest_release of parsed package_data by
+         :mod:``yarg.package`` has None value.
+
+        It's a bug from yarg which I don't have much time to fix and send
+        the patch to the maintainer. The original author of yarg
+        package seems to be inactive recently.
+
+        No issues, gonna handle it here.
+        Basically not a thing but a good thing to be in a separate
+        method.
+
+        :rtype: bool
+        """
+        return self.package_data.latest_release is None
