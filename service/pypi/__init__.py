@@ -215,3 +215,21 @@ class PyPiService(ServiceBase):
         downloads = intword(downloads)
 
         self.set_badge_context("downloads", "{}/{}".format(downloads, period))
+
+    def is_package_latest_release_invalid(self):
+        """
+        Since #https://github.com/SavandBros/badge/issues/44 it
+        seems the latest_release of parsed package_data by
+         :mod:``yarg.package`` has None value.
+
+        It's a bug from yarg which I don't have much time to fix and send
+        the patch to the maintainer. The original author of yarg
+        package seems to be inactive recently.
+
+        No issues, gonna handle it here.
+        Basically not a thing but a good thing to be in a separate
+        method.
+
+        :rtype: bool
+        """
+        return self.package_data.latest_release is None
