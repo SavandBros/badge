@@ -67,6 +67,8 @@ class AURService(ServiceBase):
         """
         Action AUR Maintainer
         """
+        self.badge_color = painter_settings.COLOR_BLUE
+
         self.set_badge_context(
             'maintainer',
             self.package_data.get('Maintainer')
@@ -77,6 +79,7 @@ class AURService(ServiceBase):
         Action AUR License
         """
         self.badge_color = painter_settings.COLOR_BLUE
+
         self.set_badge_context(
             'license',
             self.package_data.get('License')[0]
