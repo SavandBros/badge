@@ -134,6 +134,17 @@ function reinitialize(service, package) {
     for (action in services[service].actions) 
         append_action(service, action, currents.format, package);
 }
+
+function set_service(service) {
+
+    // Save the service
+    currents.service = service;
+
+    // Revert to default package
+    currents.package = services[currents.service].default;
+
+    // Change badges based on format
+    reinitialize(currents.service, currents.package);
 }
 
 function set_format(format_index) {
