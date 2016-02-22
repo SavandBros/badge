@@ -46,7 +46,7 @@ input {
 }
 
 input.search {
-    padding: 22px;
+    padding: 0 22px;
     background: #eee;
     -webkit-border-radius: 100px;
             border-radius: 100px;
