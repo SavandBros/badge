@@ -1,25 +1,42 @@
-services = [
-    {'slug': 'pypi', 'title': 'PyPi'}
-];
+// Supported services and badges
+services = {
+    "pypi": {
+        'title': 'PyPi',
+        'default': 'html2text',
+        'actions': [
+            {'slug': 'v',           'title': 'Version'        },
+            {'slug': 'd',           'title': 'Downloads'      },
+            {'slug': 'w',           'title': 'Wheel'          },
+            {'slug': 'l',           'title': 'License'        },
+            {'slug': 'f',           'title': 'Format'         },
+            {'slug': 'py_versions', 'title': 'Python Versions'},
+            {'slug': 's',           'title': 'Status'         },
+            {'slug': 'e',           'title': 'Egg'            }
+        ]
+    },
+    "aur": {
+        'title': 'AUR',
+        'default': 'git-cola',
+        'actions': [
+            {'slug': 'v',           'title': 'Version'        },
+            {'slug': 's',           'title': 'Status'         },
+            {'slug': 'num_votes',   'title': 'Votes'          },
+            {'slug': 'p',           'title': 'Popularity'     },
+            {'slug': 'm',           'title': 'Maintainer'     }
+        ]
+    }
+};
 
-actions = [
-    {'slug': 'v',           'title': 'Version'        },
-    {'slug': 'd',           'title': 'Downloads'      },
-    {'slug': 'w',           'title': 'Wheel'          },
-    {'slug': 'l',           'title': 'License'        },
-    {'slug': 'f',           'title': 'Format'         },
-    {'slug': 'py_versions', 'title': 'Python Versions'},
-    {'slug': 's',           'title': 'Status'         }
-];
-
+// Supported formats
 formats = [
     "png", "svg"
 ];
 
+// Setting variables
 currents = {
-    "service": 0,
+    "service": "pypi",
     "format":  1,
-    "package": "html2text",
+    "package": services.pypi.default,
 }
 
 function get_badge_url(service_index, action_index, format_index, package) {
