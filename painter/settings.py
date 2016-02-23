@@ -17,7 +17,7 @@ BADGE_TEMPLATE_STRING = """
     <path fill="#{value_color}" d="M{key_width} 0 h{value_width} v20 H{key_width} z" />
     <path fill="url(#b)" d="M0 0 h{total_width} v20 H0 z" />
   </g>
-  <g fill="#fff" font-family="Open Sans" font-size="11">
+  <g fill="#fff" font-family="DejaVu Sans" font-size="11">
     <text x="6" y="15" fill="#010101" fill-opacity=".3">{key_text}</text>
     <text x="6" y="14">{key_text}</text>
     <text x="{value_text_x}" y="15" fill="#010101" fill-opacity=".3">{value_text}</text>
@@ -46,4 +46,7 @@ COLOR_LIGHT_GRAY = '9f9f9f'
 
 FONT_PATH_OPEN_SANS = get_file_path_from_base(
     os.path.join(settings.STATIC_DIR, 'fonts/OpenSans-Regular.ttf')
+)
+FONT_PATH_DEJAVU_SANS = get_file_path_from_base(
+    os.path.join(settings.STATIC_DIR, 'fonts/DejaVuSans.ttf')
 )
