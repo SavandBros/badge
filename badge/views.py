@@ -16,8 +16,7 @@ app = Klein()
 def index(request):
     return render_template('index.html')
 
-
-@app.route("/static/", branch=True)
+@app.route("/bits/static/", branch=True)
 def static(request):
     return File(settings.STATIC_DIR)
 
