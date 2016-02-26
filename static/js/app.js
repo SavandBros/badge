@@ -42,7 +42,7 @@ currents = {
 function get_badge_url(service, action_index, format_index, package) {
 
     // Return a proper url of the badge based on it's service and package
-    return 'http://badge.kloud51.com/'+service+'/'+services[service].actions[action_index].slug+'/'+package+'/badge.'+formats[format_index];
+    return 'http://badge.kloud51.com/'+service+'/'+services[service].actions[action_index].slug+'/'+package+'.'+formats[format_index];
 }
 
 function append_action(service, action_index, format_index, package) {
