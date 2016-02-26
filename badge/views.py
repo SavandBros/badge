@@ -22,7 +22,7 @@ def static(request):
     return File(settings.STATIC_DIR)
 
 
-@app.route('/<string:service>/<string:action>/<string:package>/badge.<string:extension>')
+@app.route('/<string:service>/<string:action>/<string:package>.<string:extension>')
 def service_badge(request, service, action, package, extension):
     gc.collect()
 
