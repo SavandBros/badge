@@ -14,7 +14,9 @@ from painter.draw import Draw
 
 class ServiceBase(object):
     """
+    :type service_api_url: str
     :type service_url: str
+    :type display_name: str
     :type badge_key: str
     :type badge_value: str
     :type badge_color: str
@@ -26,7 +28,9 @@ class ServiceBase(object):
     :type cash_it: bool
     :type extra_context: dict
     """
+    service_api_url = None
     service_url = None
+    display_name = None
     badge_key = None
     badge_value = None
     badge_color = painter_settings.COLOR_GREEN
@@ -47,9 +51,17 @@ class ServiceBase(object):
         self.cash_it = cash_it
         self.extra_context = extra_context or {}
 
-    def get_package_url(self):
+    def get_package_api_url(self):
         """
         Build package url from its service.
+
+        :rtype: str
+        """
+        return self.service_api_url.format(self.package_name)
+
+    def get_package_url(self):
+        """
+        Build package url, for linking usage and humans eyes.
 
         :rtype: str
         """
@@ -63,7 +75,7 @@ class ServiceBase(object):
 
         :rtype: str or None
         """
-        response = requests.get(self.get_package_url())
+        response = requests.get(self.get_package_api_url())
 
         if 400 <= response.status_code < 500 or 500 <= response.status_code < 600:
             self.set_package_pulling_failed()
@@ -224,12 +236,12 @@ class ServiceBase(object):
 
     def get_cache_key(self):
         """
-        Create cache key from :method:`get_package_url`
+        Create cache key from :method:`get_package_api_url`
 
         :rtype: str
         """
         if not self.cash_key:
-            self.cash_key = hashlib.md5(self.get_package_url()).hexdigest()
+            self.cash_key = hashlib.md5(self.get_package_api_url()).hexdigest()
 
         return self.cash_key
 
