@@ -1,6 +1,6 @@
-========
+=======
 Authors
-========
+=======
 
 The PRIMARY AUTHORS are (and/or have been):
 
