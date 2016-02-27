@@ -35,7 +35,7 @@ def service_badge(request, service, action, package, extension):
         request.setResponseCode(401)
         return "{} is not a valid service.".format(service)
 
-    if action not in service_reg['actions']:
+    if action not in service_reg['actions']['all']:
         request.setResponseCode(401)
         return "{} is not a valid action.".format(action)
 
@@ -51,7 +51,7 @@ def service_badge(request, service, action, package, extension):
     ext = mimetypes.types_map[".{0}".format(extension)]
     request.headers.update({'content-type': ext})
 
-    getattr(service_class, service_reg['actions'][action])()
+    getattr(service_class, service_reg['actions']['all'][action])()
     img = service_class.draw_badge()
 
     return img
