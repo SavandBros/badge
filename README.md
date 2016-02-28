@@ -84,4 +84,4 @@ fab run_tests
 
 ## License
 
-Badge is licensed and distributed under MIT License.
+Badge is licensed and distributed under GNU General Public License v3.0 License.
