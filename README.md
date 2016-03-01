@@ -4,15 +4,15 @@ Badge/Pins/Shields/Medal or what so ever for projects.
 
 Services Supported:
 
-* Python [PyPi](https://pypi.python.org/)
+* Python [PyPI](https://pypi.python.org/)
 * ArchLinux [AUR](https://aur.archlinux.org/)
 
 
 ## Badges
 
-### PyPi
+### PyPI
 
-PyPi badges are the first of course, this project has been written in Python.
+PyPI badges are the first of course, this project has been written in Python.
 Currently below actions are supported.
 
 
