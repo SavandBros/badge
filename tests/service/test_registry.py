@@ -34,12 +34,14 @@ class TestRegistry(TestCase):
         service_actions = self.registry_service.get_service_actions(self.CatService)
 
         self.assertIsInstance(service_actions, dict)
-        self.assertEqual(len(service_actions), 6)
+        self.assertEqual(len(service_actions), 2)
 
-        for action in service_actions:
+        self.assertIn('actions', service_actions)
+        self.assertIn('all', service_actions)
+
+        for action in service_actions['all']:
             self.assertNotIn('action', action)
-            self.assertIn(action, service_actions)
-            self.assertIn(action[0], service_actions)
+            self.assertIn(action[0], service_actions['all'])
 
     def test_is_service_registry_exists(self):
         self.registry_service.register_service(self.CatService)

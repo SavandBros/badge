@@ -21,4 +21,13 @@ ALLOWED_EXTENSIONS = (
     'svg'
 )
 
+
+MARKWAHT_TEMPLATES = {
+    'markdown': "[![{service_display} {action_display}]({badge_k51}/{service}/"
+                "{action}/{pkg_name}.svg)]({pkg_url})",
+    'rst': ".. image:: {badge_k51}/{service}/{action}/{pkg_name}.svg\n"
+           "    :target: {pkg_url}\n"
+           "    :alt: {service_display} {action_display}\n"
+}
+
 redis = Redis()

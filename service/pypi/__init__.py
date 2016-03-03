@@ -17,7 +17,9 @@ class PyPiService(ServiceBase):
     """
     PyPi Service integration
     """
-    service_url = "https://pypi.python.org/pypi/{0}/json"
+    service_api_url = "https://pypi.python.org/pypi/{0}/json"
+    service_url = "https://pypi.python.org/pypi/{0}"
+    display_name = "PyPI"
 
     def package_data_parser(self):
         """

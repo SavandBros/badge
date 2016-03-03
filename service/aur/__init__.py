@@ -8,7 +8,9 @@ class AURService(ServiceBase):
     """
     AUR Service Integration
     """
-    service_url = 'https://aur.archlinux.org//rpc/?v=5&type=info&arg[]={0}'
+    service_api_url = 'https://aur.archlinux.org//rpc/?v=5&type=info&arg[]={0}'
+    service_url = 'https://aur.archlinux.org/packages/{0}/'
+    display_name = "AUR"
 
     def clean_validate_package_data(self, package_data):
         """

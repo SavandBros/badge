@@ -16,10 +16,15 @@ class Registry(object):
             raise TypeError('"{}" is not a subclass of "ServiceBase"'.format(
                 service_class.__name__))
 
+        service_actions = self.get_service_actions(service_class)
+
         self.services.update({
             self.purify_service_class_name(service_class): {
                 'class': service_class,
-                'actions': self.get_service_actions(service_class)
+                'actions': {
+                    'actions': service_actions['actions'],
+                    'all': service_actions['all'],
+                }
             }
         })
 
@@ -38,20 +43,30 @@ class Registry(object):
         :param service_class: The services module.
         :type service_class: ServiceBase
 
-        :rtype: dict
+        :rtype: dict of dict
         """
         service_vars = service_class.__dict__
         actions = {}
+        all_actions = {}
 
         for k in service_vars.keys():
             if k.startswith('action_'):
                 action_name = k.split('action_')[1]
-                actions.update({
+                action_short_name = action_name[0]
+                actions[action_name] = {
+                    'full_name': k,
+                    'short_name': action_short_name,
+                    'display_name': action_name.capitalize(),
+                }
+                all_actions.update({
                     action_name: k,
-                    action_name[0]: k
+                    action_short_name: k,
                 })
 
-        return actions
+        return {
+            'actions': actions,
+            'all': all_actions,
+        }
 
     def is_service_registry_exists(self, service_name):
         """
