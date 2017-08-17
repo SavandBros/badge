@@ -15,4 +15,5 @@ if '.svg' not in mimetypes.types_map:
 resource = app.resource
 
 if __name__ == '__main__':
-    app.run("localhost", 80)
+    port = int(os.environ.get('PORT', 80))
+    app.run('0.0.0.0', port)
