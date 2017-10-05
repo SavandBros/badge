@@ -29,5 +29,8 @@ MARKWAHT_TEMPLATES = {
            "    :target: {pkg_url}\n"
            "    :alt: {service_display} {action_display}\n"
 }
-
-redis = Redis()
+REDIS_URL = os.environ.get('REDISCLOUD_URL')
+if REDIS_URL:
+    redis = Redis.from_url(url=REDIS_URL)
+else:
+    redis = Redis()
